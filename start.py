@@ -1,0 +1,1 @@
+print("pink kow starts from here")
