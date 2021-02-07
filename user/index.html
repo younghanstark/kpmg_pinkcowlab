@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+    <video id="vid" aytoplay></video>
+
+    <script>
+
+
+        var constraints = { audio: false, video: { width: 1280, height: 720 } };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (mediaStream) {
+                var video = document.querySelector('video');
+                video.srcObject = mediaStream;
+                //아래 코드 없으면 비디오 화면이 재생 안됨
+                video.onloadedmetadata = function (e) {
+                    video.play();
+                };
+            })
+            .catch(function (err) { console.log(err.name + ": " + err.message); });
+
+    </script>
+
+</body>
+
+</html>
