@@ -1,0 +1,15 @@
+{
+  "name": "kpmg_server",
+  "version": "0.0.1",
+  "description": "magam server",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "yarn": "^1.22.10"
+  }
+}
