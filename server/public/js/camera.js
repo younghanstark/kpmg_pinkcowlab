@@ -12,7 +12,7 @@ if (navigator.mediaDevices === undefined) {
 }
 
 if (navigator.mediaDevices.getUserMedia === undefined) {
-  navigator.mediaDevices.getUserMedia = function (
+  navigator.mediaDevices.getUserMedia = function ( 
     contraints
   ) {
     //use legacy -> getUserMedia -> deprecated
@@ -52,3 +52,32 @@ navigator.mediaDevices
   .catch(function (err) {
     console.log(err.name + ": " + err.message);
   });
+
+
+  const getFrame = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const data = canvas.toDataURL('image/png');
+    return data;
+}
+const WS_URL_SEND = location.origin.replace(/^http/, 'ws');
+const FPS = 3;
+const ws_send = new WebSocket(WS_URL_SEND);
+ws_send.onopen = () => {
+    console.log(`Connected to ${WS_URL_SEND}`);
+    setInterval(() => {
+        ws_send.send(getFrame());
+    }, 1000 / FPS);
+}
+
+const img = document.querySelector('img');
+        
+        const WS_URL_CLIENT = location.origin.replace(/^http/, 'ws');
+        const ws_client = new WebSocket(WS_URL_CLIENT);
+        ws_client.onopen = () => console.log(`Connected to ${WS_URL_CLIENT}`);
+        ws_client.onmessage = message => {
+            // set the base64 string to the src tag of the image
+            img.src = message.data;
+        }
