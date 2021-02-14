@@ -5,6 +5,7 @@
    
   
     <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js" integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA==" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -85,27 +86,25 @@
           return data;
       }
 
-      const WS_URL_SEND = location.origin.replace(/^http/, 'ws');
+      const WS_URL_SEND = location.origin
       const FPS = 3;
 
-      const ws_send = new WebSocket(WS_URL_SEND);
-      ws_send.onopen = () => {
-          console.log(`Connected to ${WS_URL_SEND}`);
+      const ws_send = io(WS_URL_SEND);
+    
+      console.log(`Connected to ${WS_URL_SEND} : client`);
           setInterval(() => {
-              ws_send.send(getFrame());
+              ws_send.emit("data", getFrame());
           }, 1);
-      }
+      
       //client
       
       const img = document.querySelector('img');
               
-              const WS_URL_CLIENT = location.origin.replace(/^http/, 'ws');
-              const ws_client = new WebSocket(WS_URL_CLIENT);
-              ws_client.onopen = () => console.log(`Connected to ${WS_URL_CLIENT}`);
-              ws_client.onmessage = message => {
+              ws_send.on("src", (data) => {
                   // set the base64 string to the src tag of the image
-                  img.src = message.data;
-              }
+                  img.src = data;
+                
+              });
 </script>
 
 
