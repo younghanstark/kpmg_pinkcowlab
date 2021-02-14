@@ -8,24 +8,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js" integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA==" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    {% comment %} <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
-    <video id="vid" aytoplay></video> {% endcomment %}
+<body >
+    <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
+    <video id="vid" hidden></video>
+    
+    <canvas id="canvas" width="800" height="600"></canvas>
 
     <h1>여기 밑으로는 결과화면 출력</h1>
-    <img src = "">
+    <canvas id= "result" src = ""></canvas>
+    <img src ="">
 
 
 
 </body>
 <script>
+
+
+
     //streamer
     var constraints = {
         audio: false,
         video: { width: 400, height: 250 },
       };
       var video = document.querySelector("video");
-      
+      var before = document.getElementById("before");
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      var image = ""
+      var resultImg = document.getElementById("result");
+      var ctxR = resultImg.getContext('2d');
+      var sendString = ""
+      var imageR = document.querySelector("img");
+
       console.log(navigator);
       console.log(navigator.mediaDevices);
       
@@ -70,40 +84,52 @@
           //아래 코드 없으면 비디오 화면이 재생 안됨
           video.onloadedmetadata = function (e) {
             video.play();
+            //before.src = getFrame
           };
         })
         .catch(function (err) {
           console.log(err.name + ": " + err.message);
         });
+
+        video.addEventListener('play', function(){
+          draw(this, ctx, 400, 250);
+        }, false)
+
+        function draw( video, ctx, width, height ) {
+          var data, i, r, g, b, brightness;
+          
+          ctx.drawImage( video, 0, 0, width, height );
+          
+          image = ctx.getImageData( 0, 0, width, height );
+          
+          //console.log(image)
+          ctx.putImageData( image, 0, 0 );
+          sendString = canvas.toDataURL()
+          setTimeout( draw, 10, video, ctx, width, height );
+        }
       
-      
-        const getFrame = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          canvas.getContext('2d').drawImage(video, 0, 0);
-          const data = canvas.toDataURL('image/png');
-          return data;
-      }
+     
 
       const WS_URL_SEND = location.origin
       const FPS = 3;
 
       const ws_send = io(WS_URL_SEND);
-    
+      
       console.log(`Connected to ${WS_URL_SEND} : client`);
           setInterval(() => {
-              ws_send.emit("data", getFrame());
-          }, 1);
+              //console.log(sendString)
+              ws_send.emit("data", sendString);
+          }, 100);
       
       //client
       
       const img = document.querySelector('img');
               
-              ws_send.on("src", (data) => {
+              ws_send.on("src", (newS) => {
                   // set the base64 string to the src tag of the image
-                  img.src = data;
-                console.log("got")
+                 imageR.src = newS
+                 //console.log(newS)
+             
               });
 </script>
 
