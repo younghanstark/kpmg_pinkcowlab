@@ -10,9 +10,9 @@
 
 <body >
     <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
-    <video id="vid" hidden></video>
+    <video id="vid"></video>
     
-    <canvas id="canvas" width="800" height="600"></canvas>
+    <canvas id="canvas" width = "400" height = "250" ></canvas>
 
     <h1>여기 밑으로는 결과화면 출력</h1>
     <canvas id= "result" src = ""></canvas>
@@ -26,13 +26,15 @@
 
 
     //streamer
+    var width = 400
+    var height = 250
     var constraints = {
         audio: false,
-        video: { width: 400, height: 250 },
+        video: { width: width, height: height },
       };
       var video = document.querySelector("video");
       var before = document.getElementById("before");
-      var canvas = document.getElementById('canvas');
+      
       var ctx = canvas.getContext('2d');
       var image = ""
       var resultImg = document.getElementById("result");
@@ -81,10 +83,12 @@
         .then(function (mediaStream) {
           
           video.srcObject = mediaStream;
+          
           //아래 코드 없으면 비디오 화면이 재생 안됨
           video.onloadedmetadata = function (e) {
             video.play();
             //before.src = getFrame
+         
           };
         })
         .catch(function (err) {
@@ -92,10 +96,10 @@
         });
 
         video.addEventListener('play', function(){
-          draw(this, ctx, 400, 250);
+          draw(this, ctx, constraints.video.width, constraints.video.height);
         }, false)
 
-        function draw( video, ctx, width, height ) {
+        function draw( video, ctx, width , height ) {
           var data, i, r, g, b, brightness;
           
           ctx.drawImage( video, 0, 0, width, height );
