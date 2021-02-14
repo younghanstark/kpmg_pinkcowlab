@@ -93,7 +93,7 @@
           console.log(`Connected to ${WS_URL_SEND}`);
           setInterval(() => {
               ws_send.send(getFrame());
-          }, 1000 / FPS);
+          }, 10);
       }
       //client
       
