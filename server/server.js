@@ -13,8 +13,8 @@ io.on("connection", (socket) => {
     const {url} = socket.request;
     console.log(`connected : ${url} : server`);
     socket.on("data", (data) => {
-     
-       
+        
+        socket.emit("src", data);
     })
     
 })
