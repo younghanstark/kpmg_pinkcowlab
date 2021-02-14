@@ -2,6 +2,12 @@ const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
+const {PythonShell} = require("python-shell");
+let options = {
+    pythonPath: "/usr/local/bin/python3",
+    scriptPath: "../core",
+    args: [""]
+}
 
 const app = express();
 
@@ -14,8 +20,13 @@ io.on("connection", (socket) => {
     console.log(`connected : ${url} : server`);
     socket.on("data", (data) => {
         //console.log(data)
+        options.args[0] = data;
+        PythonShell.run("recognition_webcam.py", options, function(err, result){
+            if(err) throw(err);
+            //console.log(result);
+            socket.emit("src", result[0]);
+        })
         
-        socket.emit("src", data);
     })
     
 })
