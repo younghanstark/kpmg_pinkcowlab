@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   
+  
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js" integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA==" crossorigin="anonymous"></script>
+</head>
+
+<body >
+    <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
+    <video id="vid" hidden></video>
+    
+    <canvas id="canvas"  ></canvas>
+
+    <h1>여기 밑으로는 결과화면 출력</h1>
+    
+    <img src ="">
+
+
+
+</body>
+<script>
+
+
+
+    //streamer
+    var width = 400
+    var height = 250
+    var constraints = {
+        audio: false,
+        video: { width: width, height: height },
+      };
+      var video = document.querySelector("video");
+      var canvas = document.getElementById("canvas");
+      canvas.height = height;
+      canvas.width = width;
+      var ctx = canvas.getContext('2d');
+      var image = ""
+     
+      var sendString = ""
+      var imageR = document.querySelector("img");
+
+      console.log(navigator);
+      console.log(navigator.mediaDevices);
+      
+      //make mediaDevices to empty instance if necessary
+      if (navigator.mediaDevices === undefined) {
+        navigator.mediaDevices = {};
+      }
+      
+      if (navigator.mediaDevices.getUserMedia === undefined) {
+        navigator.mediaDevices.getUserMedia = function ( 
+          contraints
+        ) {
+          //use legacy -> getUserMedia -> deprecated
+          var getUserMedia =
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia;
+      
+          //worst case
+          if (!getUserMedia) {
+            return Promise.reject(
+              new Error(
+                "getUserMedia is not implemented in this browser"
+              )
+            );
+          }
+          return new Promise(function (resolve, reject) {
+            getUserMedia.call(
+              navigator,
+              constraints,
+              resolve,
+              reject
+            );
+          });
+        };
+      }
+      
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(function (mediaStream) {
+          
+          video.srcObject = mediaStream;
+          
+          //아래 코드 없으면 비디오 화면이 재생 안됨
+          video.onloadedmetadata = function (e) {
+            video.play();
+            //before.src = getFrame
+         
+          };
+        })
+        .catch(function (err) {
+          console.log(err.name + ": " + err.message);
+        });
+
+        video.addEventListener('play', function(){
+          draw(this, ctx, constraints.video.width, constraints.video.height);
+        }, false)
+
+        function draw( video, ctx, width , height ) {
+          var data, i, r, g, b, brightness;
+          
+          ctx.drawImage( video, 0, 0, width, height );
+          
+          image = ctx.getImageData( 0, 0, width, height );
+          
+          //console.log(image)
+          ctx.putImageData( image, 0, 0 );
+          sendString = canvas.toDataURL()
+          setTimeout( draw, 1, video, ctx, width, height );
+        }
+      
+     
+
+      const WS_URL_SEND = location.origin
+      const FPS = 3;
+
+      const ws_send = io(WS_URL_SEND);
+      
+      console.log(`Connected to ${WS_URL_SEND} : client`);
+          setInterval(() => {
+              //console.log(sendString)
+              ws_send.emit("data", sendString);
+          }, 300);
+      
+      //client
+      
+      const img = document.querySelector('img');
+              
+              ws_send.on("src", (newS) => {
+                  // set the base64 string to the src tag of the image
+                 imageR.src = newS
+                 //console.log(newS)
+             
+              });
+</script>
+
+
+</html>
