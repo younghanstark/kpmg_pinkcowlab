@@ -35,7 +35,7 @@
       var video = document.querySelector("video");
       var canvas = document.getElementById("canvas");
       canvas.height = height;
-      canvas.width = width;
+      canvas.width =
       var ctx = canvas.getContext('2d');
       var image = ""
       var resultImg = document.getElementById("result");
@@ -110,7 +110,7 @@
           //console.log(image)
           ctx.putImageData( image, 0, 0 );
           sendString = canvas.toDataURL()
-          setTimeout( draw, 300, video, ctx, width, height );
+          setTimeout( draw, 1, video, ctx, width, height );
         }
       
      
@@ -124,7 +124,7 @@
           setInterval(() => {
               //console.log(sendString)
               ws_send.emit("data", sendString);
-          }, 10);
+          }, 300);
       
       //client
       
