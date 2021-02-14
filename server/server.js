@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
     socket.on("data", (data) => {
         //console.log(data)
         options.args[0] = data;
-        PythonShell.run("recognition_webcam.py", options, function(err, result){
+        PythonShell.run("opencv_test_webcam_web.py", options, function(err, result){
             if(err) throw(err);
             //console.log(result);
             socket.emit("src", result[0]);
