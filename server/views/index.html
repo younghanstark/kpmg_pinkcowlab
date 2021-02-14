@@ -87,6 +87,7 @@
 
       const WS_URL_SEND = location.origin.replace(/^http/, 'ws');
       const FPS = 3;
+
       const ws_send = new WebSocket(WS_URL_SEND);
       ws_send.onopen = () => {
           console.log(`Connected to ${WS_URL_SEND}`);
