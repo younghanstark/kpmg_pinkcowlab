@@ -7,8 +7,8 @@ var constraints = {
 };
 var video = document.querySelector("video");
 
-//   console.log(navigator);
-//   console.log(navigator.mediaDevices);
+//   //console.log(navigator);
+//   //console.log(navigator.mediaDevices);
 
 //make mediaDevices to empty instance if necessary
 
@@ -46,5 +46,5 @@ navigator.mediaDevices
     };
   })
   .catch(function (err) {
-    console.log(err.name + ": " + err.message);
+    //console.log(err.name + ": " + err.message);
   });

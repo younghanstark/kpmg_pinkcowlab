@@ -13,9 +13,9 @@ function launchPyshell(data, socket) {
 
   pyshell.on("message", function (message) {
     // received a message sent from the Python script (a simple "print" statement)
-    //console.log(message);
+    ////console.log(message);
     var isData = message.indexOf("data");
-    //console.log("isdata : ", isData);
+    ////console.log("isdata : ", isData);
     if (isData != -1) {
       socket.emit("src", message);
     } else if (message != "") {
@@ -26,16 +26,16 @@ function launchPyshell(data, socket) {
   // end the input stream and allow the process to exit
   pyshell.end(function (err, code, signal) {
     if (err) throw err;
-    console.log("The exit code was: " + code);
-    console.log("The exit signal was: " + signal);
-    console.log("finished");
+    //console.log("The exit code was: " + code);
+    //console.log("The exit signal was: " + signal);
+    //console.log("finished");
   });
 }
 
 // options.args[0] = data;
 // PythonShell.run("opencv_test_webcam_web.py", options, function (err, result) {
 //   if (err) throw err;
-//   //console.log(result);
+//   ////console.log(result);
 //   socket.emit("src", result[0]);
 //   socket.emit("warn", result[1]);
 // });

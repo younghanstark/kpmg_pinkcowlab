@@ -23,7 +23,7 @@ function draw(video, ctx, width, height) {
 }
 
 setInterval(() => {
-  //console.log(sendString);
+  ////console.log(sendString);
   ws_client.emit("data", sendString);
-  //console.log(sendString);
+  ////console.log(sendString);
 }, 1000);

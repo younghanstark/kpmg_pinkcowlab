@@ -15,15 +15,15 @@ const io = socketio(server);
 
 io.on("connection", (socket) => {
   const { url } = socket.request;
-  console.log(`connected : ${url} : server`);
-  console.log("here");
+  //console.log(`connected : ${url} : server`);
+  //console.log("here");
   socket.on("data", (data, self) => {
-    //console.log(data)
+    ////console.log(data)
     launchPyshell(data, socket);
   });
 });
 
 const PORT = process.env.PORT || 3000;
 
-server.listen(3000, () => console.log(`listening on port : ${PORT}`));
+server.listen(3000, () => //console.log(`listening on port : ${PORT}`));
 app.use("/static", express.static("public"));
