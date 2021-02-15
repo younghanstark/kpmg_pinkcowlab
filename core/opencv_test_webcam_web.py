@@ -25,6 +25,43 @@ if(len(imgCode) >1):
 
     frame = img
 
+    frame = cv2.flip(frame, 1)
+
+    faces = find_frontalfaces(frame)
+    noses = find_noses(frame)
+    mask = True
+
+    if len(faces):
+        for (x, y, w, h) in faces:
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+
+    if len(noses):
+        for (x, y, w, h) in noses:
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+    if len(faces):
+        for face in faces:
+            for nose in noses:
+                if inside(range_limit(face), nose):
+                    x, y, w, h = nose
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    mask = False
+
+    # cv2.imshow('result', frame)
+
+    # k = cv2.waitKey(30) & 0xff
+    # if k == 27:  # Press Esc to terminate
+    #     break
+
+    # cap.release()
+    # cv2.destroyAllWindows()
+
+    retval, buffer = cv2.imencode('.jpg', frame)
+    jpg_as_text = base64.b64encode(buffer)
+    test = jpg_as_text.decode()
+    print("data:image/jpeg;base64," + test)
+    print(mask)
+
 
 def find_frontalfaces(frame):
     face_xml = '../core/haarcascades/haarcascade_frontalface_default.xml'
@@ -63,39 +100,4 @@ def range_limit(face):
 # cap.set(4, 480)
 
 # while True:
-frame = cv2.flip(frame, 1)
 
-faces = find_frontalfaces(frame)
-noses = find_noses(frame)
-mask = True
-
-if len(faces):
-    for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-if len(noses):
-    for (x, y, w, h) in noses:
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-if len(faces):
-    for face in faces:
-        for nose in noses:
-            if inside(range_limit(face), nose):
-                x, y, w, h = nose
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                mask = False
-
-# cv2.imshow('result', frame)
-
-# k = cv2.waitKey(30) & 0xff
-# if k == 27:  # Press Esc to terminate
-#     break
-
-# cap.release()
-# cv2.destroyAllWindows()
-
-retval, buffer = cv2.imencode('.jpg', frame)
-jpg_as_text = base64.b64encode(buffer)
-test = jpg_as_text.decode()
-print("data:image/jpeg;base64," + test)
-print(mask)
