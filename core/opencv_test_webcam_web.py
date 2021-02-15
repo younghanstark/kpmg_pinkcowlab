@@ -4,15 +4,22 @@ import numpy as np
 import sys
 
 imgCode_input = sys.argv[1]
+
 if(imgCode_input == ""):
     print("")
     quit()
 
-imgCode = imgCode_input.split(",", 1)
+with open("imageToSave.png", "wb") as fh:
+    fh.write(base64.decodebytes(imgCode_input))
+    img = cv2.imread('imageToSave.png', cv2.IMREAD_COLOR)
 
-decoded_data = base64.b64decode(imgCode[1])
-np_data = np.frombuffer(decoded_data,dtype=np.uint8)
-img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
+
+
+# imgCode = imgCode_input.split(",", 1)
+
+# decoded_data = base64.b64decode(imgCode[1])
+# np_data = np.frombuffer(decoded_data,dtype=np.uint8)
+# img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
 
 frame = img
 

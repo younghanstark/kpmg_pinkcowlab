@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
   const { url } = socket.request;
   console.log(`connected : ${url} : server`);
   socket.on("data", (data) => {
-    //console.log(data)
+    //console.log(data);
     options.args[0] = data;
     PythonShell.run(
       "opencv_test_webcam_web.py",
