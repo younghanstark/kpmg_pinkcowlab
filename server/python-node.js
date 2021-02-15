@@ -1,18 +1,26 @@
-import { PythonShell } from "python-shell";
+const { PythonShell } = require("python-shell");
+
 let options = {
   pythonPath: "/usr/local/bin/python3",
-  scriptPath: "../../core",
+  scriptPath: "../core",
 };
 
-export default function launchPyshell(data) {
-  let pyshell = new PythonShell("test.py", options);
+function launchPyshell(data, socket) {
+  let pyshell = new PythonShell("opencv_test_webcam_web.py", options);
 
   // sends a message to the Python script via stdin
   pyshell.send(data);
 
   pyshell.on("message", function (message) {
     // received a message sent from the Python script (a simple "print" statement)
-    console.log(message);
+    //console.log(message);
+    var isData = message.indexOf("data");
+    //console.log("isdata : ", isData);
+    if (isData != -1) {
+      socket.emit("src", message);
+    } else if (message != "") {
+      socket.emit("warn", message);
+    }
   });
 
   // end the input stream and allow the process to exit
@@ -31,3 +39,5 @@ export default function launchPyshell(data) {
 //   socket.emit("src", result[0]);
 //   socket.emit("warn", result[1]);
 // });
+
+module.exports = { launchPyshell };

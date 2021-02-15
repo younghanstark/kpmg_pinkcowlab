@@ -4,7 +4,7 @@ var body = document.body;
 //client
 
 ws_client.on("src", (newS) => {
-  //console.log(newS);
+  console.log(newS);
   // set the base64 string to the src tag of the image
   imageR.src = newS;
   //console.log(newS)

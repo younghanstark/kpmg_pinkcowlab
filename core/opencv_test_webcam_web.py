@@ -3,23 +3,24 @@ import base64
 import numpy as np
 import sys
 
-imgCode_input = sys.argv[1]
+imgCode_input = []
 
-if(imgCode_input == ""):
+for line in sys.stdin:
+    imgCode_input.append(line)
+
+imgCode_input
+
+if(imgCode_input == []):
     print("")
     quit()
 
-with open("imageToSave.png", "wb") as fh:
-    fh.write(base64.decodebytes(imgCode_input))
-    img = cv2.imread('imageToSave.png', cv2.IMREAD_COLOR)
 
 
+imgCode = imgCode_input[0].split(",", 1)
 
-# imgCode = imgCode_input.split(",", 1)
-
-# decoded_data = base64.b64decode(imgCode[1])
-# np_data = np.frombuffer(decoded_data,dtype=np.uint8)
-# img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
+decoded_data = base64.b64decode(imgCode[1])
+np_data = np.frombuffer(decoded_data,dtype=np.uint8)
+img = cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
 
 frame = img
 
