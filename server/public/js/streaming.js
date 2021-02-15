@@ -26,4 +26,4 @@ setInterval(() => {
   //console.log(sendString);
   ws_client.emit("data", sendString);
   //console.log(sendString);
-}, 300);
+}, 1000);
