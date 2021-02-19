@@ -1,8 +1,3 @@
-var constraints = {
-  audio: false,
-  video: true,
-};
-
 var camSelection = document.getElementById("selectArea");
 //Global variables
 var video = document.getElementById("vid"); //where we will put & test our video output
@@ -14,6 +9,10 @@ var tests; //holder for our test results
 var r = 0; //used for iterating through the array
 var camNum = 0; //used for iterating through number of camera
 var scanning = false; //variable to show if we are in the middle of a scan
+var height = 0;
+var width = 0;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 
 function gotDevices(deviceInfos) {
   camSelection.hidden = false;
@@ -147,6 +146,7 @@ function gum(candidate, device) {
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then(gotStream)
+
         .catch((error) => {
           console.log("getUserMedia error!", error);
 
@@ -170,109 +170,78 @@ function gum(candidate, device) {
     );
     video.width = candidate.width;
     video.height = candidate.height;
+    canvas.width = candidate.width;
+    canvas.height = candidate.height;
+    height = candidate.height;
+    width = candidate.width;
 
-    window.stream = mediaStream; // make globally available
+    // make globally available
     video.srcObject = mediaStream;
+
+    console.log("draw");
   }
 }
-
-function displayVideoDimensions() {
-  //This should only happen during setup
-  if (tests === undefined) return;
-
-  //Wait for dimensions if they don't show right away
-  if (!video.videoWidth) {
-    setTimeout(displayVideoDimensions, 500); //was 500
-  }
-
-  if (video.videoWidth * video.videoHeight > 0) {
-    if (
-      tests[r].width + "x" + tests[r].height !==
-      video.videoWidth + "x" + video.videoHeight
-    ) {
-      captureResults("fail: mismatch");
-    } else {
-      captureResults("pass");
-    }
-  }
-}
-
-video.onloadedmetadata = displayVideoDimensions;
 
 //Save results to the candidate so
 function captureResults(status) {
-  console.log(
-    "Stream dimensions for " +
-      tests[r].label +
-      ": " +
-      video.videoWidth +
-      "x" +
-      video.videoHeight
-  );
+  // console.log(
+  //   "Stream dimensions for " +
+  //     tests[r].label +
+  //     ": " +
+  //     video.videoWidth +
+  //     "x" +
+  //     video.videoHeight
+  // );
 
   if (!scanning)
     //exit if scan is not active
     return;
 
-  tests[r].status = status;
-  tests[r].streamWidth = video.videoWidth;
-  tests[r].streamHeight = video.videoHeight;
+  // tests[r].status = status;
+  // tests[r].streamWidth = video.videoWidth;
+  // tests[r].streamHeight = video.videoHeight;
 
-  let row = document.getElementById("results").insertRow(-1);
-  let browserVer = row.insertCell(0);
-  let deviceName = row.insertCell(1);
-  let label = row.insertCell(2);
-  let ratio = row.insertCell(3);
-  let ask = row.insertCell(4);
-  let actual = row.insertCell(5);
-  let statusCell = row.insertCell(6);
-  let deviceIndex = row.insertCell(7);
-  let resIndex = row.insertCell(8);
+  // let row = document.getElementById("results").insertRow(-1);
+  // let browserVer = row.insertCell(0);
+  // let deviceName = row.insertCell(1);
+  // let label = row.insertCell(2);
+  // let ratio = row.insertCell(3);
+  // let ask = row.insertCell(4);
+  // let actual = row.insertCell(5);
+  // let statusCell = row.insertCell(6);
+  // let deviceIndex = row.insertCell(7);
+  // let resIndex = row.insertCell(8);
 
-  //don't show these
-  deviceIndex.style.display = "none";
-  resIndex.style.display = "none";
+  // //don't show these
+  // deviceIndex.style.display = "none";
+  // resIndex.style.display = "none";
 
-  deviceIndex.class = "hidden";
-  resIndex.class = "hidden";
+  // deviceIndex.class = "hidden";
+  // resIndex.class = "hidden";
 
-  // browserVer.innerHTML =
-  //   adapter.browserDetails.browser + " " + adapter.browserDetails.version;
-  deviceName.innerHTML = selectedCamera[camNum].label;
-  label.innerHTML = tests[r].label;
-  ratio.innerHTML = tests[r].ratio;
-  ask.innerHTML = tests[r].width + "x" + tests[r].height;
-  actual.innerHTML = tests[r].streamWidth + "x" + tests[r].streamHeight;
-  statusCell.innerHTML = tests[r].status;
-  deviceIndex.innerHTML = camNum; //used for debugging
-  resIndex.innerHTML = r; //used for debugging
-
+  // // browserVer.innerHTML =
+  // //   adapter.browserDetails.browser + " " + adapter.browserDetails.version;
+  // deviceName.innerHTML = selectedCamera[camNum].label;
+  // label.innerHTML = tests[r].label;
+  // ratio.innerHTML = tests[r].ratio;
+  // ask.innerHTML = tests[r].width + "x" + tests[r].height;
+  // actual.innerHTML = tests[r].streamWidth + "x" + tests[r].streamHeight;
+  // statusCell.innerHTML = tests[r].status;
+  // deviceIndex.innerHTML = camNum; //used for debugging
+  // resIndex.innerHTML = r; //used for debugging
+  console.log(tests.length);
+  console.log(r);
+  console.log(camNum);
   r++;
 
   //go to the next tests
   if (r < tests.length) {
     gum(tests[r], selectedCamera[camNum]);
-  } else if (camNum < selectedCamera.length - 1) {
-    //move on to the next camera
-    camNum++;
-    r = 0;
-    gum(tests[r], selectedCamera[camNum]);
   } else {
     //finish up
+    console.log("finish");
     video.removeEventListener("onloadedmetadata", displayVideoDimensions); //turn off the event handler
-    $("button").off("click"); //turn the generic button handler  off
-
     scanning = false;
-
-    $(".pfin").show();
-    $("#csvOut").click(function () {
-      exportTableToCSV.apply(this, [$("#results"), "gumResTestExport.csv"]);
-    });
-
-    //allow to click on a row to test (only works with device Enumeration
-    if (devices) {
-      clickRows();
-    }
   }
 }
 

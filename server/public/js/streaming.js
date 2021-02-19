@@ -1,14 +1,7 @@
 //streamer
 
 var body = document.body;
-var canvas = document.getElementById("canvas");
-var height = video.height;
-var width = video.width;
-console.log(video);
-canvas.height = height;
-canvas.width = width;
-console.log(height, width);
-var ctx = canvas.getContext("2d");
+var video = document.getElementById("vid");
 var sendString = "";
 var streamingId = null;
 var stopButton = document.getElementById("stop-button");
@@ -17,7 +10,9 @@ var startButton = document.getElementById("start-button");
 video.addEventListener(
   "play",
   function () {
+    console.log("draw");
     ctx.drawImage(video, 0, 0, width, height);
+    console.log(height, width);
   },
   false
 );
