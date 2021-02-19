@@ -61,9 +61,6 @@ function stop() {
   }
   console.log(streamingId);
   body.style.setProperty("--background-color", "green");
-  if (!video.videoWidth) {
-    setTimeout(displayVideoDimensions, 500); //was 500
-  }
 }
 
 console.log(stopButton);
@@ -84,7 +81,7 @@ startButton.onclick = () => {
     //console.log(sendString);
     ws_client.emit("data", sendString);
     ////console.log(sendString);
-  }, 1000);
+  }, 500);
 };
 
 console.log(startButton);
