@@ -6,12 +6,14 @@ var sendString = "";
 var streamingId = null;
 var stopButton = document.getElementById("stop-button");
 var startButton = document.getElementById("start-button");
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
 
 video.addEventListener(
   "play",
   function () {
     console.log("draw");
-    ctx.drawImage(video, 0, 0, width, height);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     console.log(height, width);
   },
   false
@@ -42,7 +44,7 @@ console.log("checked");
 
 startButton.onclick = () => {
   console.log("start");
-  draw(video, ctx, constraints.video.width, constraints.video.height);
+  draw(video, ctx, canvas.width, canvas.height);
 };
 
 console.log(startButton);
@@ -55,6 +57,7 @@ console.log(startButton);
 
 setInterval(() => {
   ////console.log(sendString);
+  console.log(sendString);
   ws_client.emit("data", sendString);
   ////console.log(sendString);
 }, 1000);

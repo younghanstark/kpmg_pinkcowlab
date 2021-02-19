@@ -175,6 +175,8 @@ function gum(candidate, device) {
     height = candidate.height;
     width = candidate.width;
 
+    scanning = false;
+
     // make globally available
     video.srcObject = mediaStream;
 
@@ -184,104 +186,19 @@ function gum(candidate, device) {
 
 //Save results to the candidate so
 function captureResults(status) {
-  // console.log(
-  //   "Stream dimensions for " +
-  //     tests[r].label +
-  //     ": " +
-  //     video.videoWidth +
-  //     "x" +
-  //     video.videoHeight
-  // );
-
   if (!scanning)
     //exit if scan is not active
     return;
 
-  // tests[r].status = status;
-  // tests[r].streamWidth = video.videoWidth;
-  // tests[r].streamHeight = video.videoHeight;
-
-  // let row = document.getElementById("results").insertRow(-1);
-  // let browserVer = row.insertCell(0);
-  // let deviceName = row.insertCell(1);
-  // let label = row.insertCell(2);
-  // let ratio = row.insertCell(3);
-  // let ask = row.insertCell(4);
-  // let actual = row.insertCell(5);
-  // let statusCell = row.insertCell(6);
-  // let deviceIndex = row.insertCell(7);
-  // let resIndex = row.insertCell(8);
-
-  // //don't show these
-  // deviceIndex.style.display = "none";
-  // resIndex.style.display = "none";
-
-  // deviceIndex.class = "hidden";
-  // resIndex.class = "hidden";
-
-  // // browserVer.innerHTML =
-  // //   adapter.browserDetails.browser + " " + adapter.browserDetails.version;
-  // deviceName.innerHTML = selectedCamera[camNum].label;
-  // label.innerHTML = tests[r].label;
-  // ratio.innerHTML = tests[r].ratio;
-  // ask.innerHTML = tests[r].width + "x" + tests[r].height;
-  // actual.innerHTML = tests[r].streamWidth + "x" + tests[r].streamHeight;
-  // statusCell.innerHTML = tests[r].status;
-  // deviceIndex.innerHTML = camNum; //used for debugging
-  // resIndex.innerHTML = r; //used for debugging
-  console.log(tests.length);
-  console.log(r);
-  console.log(camNum);
   r++;
 
   //go to the next tests
   if (r < tests.length) {
     gum(tests[r], selectedCamera[camNum]);
-  } else {
-    //finish up
-    console.log("finish");
-    video.removeEventListener("onloadedmetadata", displayVideoDimensions); //turn off the event handler
-    scanning = false;
   }
 }
 
 const quickScan = [
-  {
-    label: "4K(UHD)",
-    width: 3840,
-    height: 2160,
-    ratio: "16:9",
-  },
-  {
-    label: "1080p(FHD)",
-    width: 1920,
-    height: 1080,
-    ratio: "16:9",
-  },
-  {
-    label: "UXGA",
-    width: 1600,
-    height: 1200,
-    ratio: "4:3",
-  },
-  {
-    label: "720p(HD)",
-    width: 1280,
-    height: 720,
-    ratio: "16:9",
-  },
-  {
-    label: "SVGA",
-    width: 800,
-    height: 600,
-    ratio: "4:3",
-  },
-  {
-    label: "VGA",
-    width: 640,
-    height: 480,
-    ratio: "4:3",
-  },
   {
     label: "360p(nHD)",
     width: 640,
