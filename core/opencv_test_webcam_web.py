@@ -48,7 +48,7 @@ if(len(imgCode_input) == 0):
     quit()
 
 
-
+fx, fy, fw, fh = 0,0,0,0
 imgCode = imgCode_input[0].split(",", 1)
 if(len(imgCode) >1):
     decoded_data = base64.b64decode(imgCode[1])
@@ -63,22 +63,27 @@ if(len(imgCode) >1):
     noses = find_noses(frame)
     mask = True
 
-    if len(faces):
-        for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    # if len(faces):
+    #     for (x, y, w, h) in faces:
+    #         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-    if len(noses):
-        for (x, y, w, h) in noses:
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    # if len(noses):
+    #     for (x, y, w, h) in noses:
+    #         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     if len(faces):
         for face in faces:
             for nose in noses:
                 if inside(range_limit(face), nose):
-                    x, y, w, h = nose
-                    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    x, y, w, h = face
+                    # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+                    fx = x
+                    fy = y
+                    fh = h
+                    fw = w
                     mask = False
 
+    
     # cv2.imshow('result', frame)
 
     # k = cv2.waitKey(30) & 0xff
@@ -88,10 +93,10 @@ if(len(imgCode) >1):
     # cap.release()
     # cv2.destroyAllWindows()
 
-    retval, buffer = cv2.imencode('.jpg', frame)
-    jpg_as_text = base64.b64encode(buffer)
-    test = jpg_as_text.decode()
-    print("data:image/jpeg;base64," + test)
+    # retval, buffer = cv2.imencode('.jpg', frame)
+    # jpg_as_text = base64.b64encode(buffer)
+    # test = jpg_as_text.decode()
+    print("data"+","+str(fx)+","+str(fy)+','+str(fh)+','+str(fw))
     print(mask)
 
 

@@ -14,6 +14,8 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var mainCanvas = document.getElementById("area-canvas");
 var ctx_area = mainCanvas.getContext("2d");
+var resultCanvas = document.getElementById("result-canvas");
+var ctx_result = resultCanvas.getContext("2d");
 
 function gotDevices(deviceInfos) {
   camSelection.hidden = false;
@@ -45,11 +47,6 @@ navigator.mediaDevices
     navigator.mediaDevices
       .enumerateDevices()
       .then(gotDevices)
-      .then(
-        (video.onloadedmetadata = function (e) {
-          video.play();
-        })
-      )
       .catch(errorCallback);
   })
   .catch((error) => {
@@ -164,10 +161,15 @@ function gum(candidate, device) {
     canvas.height = height;
     mainCanvas.height = height;
     mainCanvas.width = width;
+    resultCanvas.width = width;
+    resultCanvas.height = height;
 
     scanning = false;
 
     video.srcObject = mediaStream;
+    video.onloadedmetadata = function (e) {
+      video.play();
+    };
 
     console.log("draw");
   }

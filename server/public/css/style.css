@@ -6,4 +6,9 @@ body {
 }
 #area-canvas {
   position: absolute;
+  z-index: 100;
+}
+#result-canvas {
+  position: absolute;
+  z-index: 20;
 }
