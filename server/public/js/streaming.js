@@ -27,18 +27,27 @@ function draw(video, ctx, width, height) {
   ctx.translate(-1 * width, 0);
   ctx.drawImage(video, 0, 0, width, height);
   ctx.restore();
+  img = new Image();
   if (streamingId != null) {
-    cropCtx.drawImage(
-      video,
-      recTLX,
-      recTLY,
-      cropWidth,
-      cropWidth,
-      0,
-      0,
-      cropWidth,
-      cropHeight
-    );
+    img.onload = function () {
+      var canvas = document.getElementById("canvas-crop");
+      canvas.width = cropWidth;
+      canvas.height = cropHeight;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(
+        img,
+        recTLX,
+        recTLY,
+        cropWidth,
+        cropHeight,
+        0,
+        0,
+        cropWidth,
+        cropHeight
+      );
+    };
+
+    img.src = canvas.toDataURL();
   }
 
   sendString = cropCanvas.toDataURL();
@@ -105,6 +114,7 @@ ws_client.on("src", (newS) => {
     // imageR.src = newS;
     console.log(newS);
     var coord = newS.split(",");
+    ctx_result.strokeStyle = "#ff0000";
     ctx_result.strokeRect(
       parseInt(coord[1]) + recTLX,
       parseInt(coord[2]) + recTLY,
