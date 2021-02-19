@@ -30,7 +30,7 @@ def inside(outer_rect, inner_rect):
 
 def range_limit(face):
     x, y, h, w = face
-    return x, y + h * 0.3, h * 0.7, w
+    return x, y + h * 0.3, h * 0.65, w
 
 
 cap = cv2.VideoCapture(0)
@@ -61,7 +61,7 @@ while True:
 
     cv2.imshow('result', frame)
 
-    k = cv2.waitKey(30) & 0xff
+    k = cv2.waitKey(1)
     if k == 27:  # Press Esc to terminate
         break
 
