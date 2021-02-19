@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js"
+      integrity="sha512-oFOCo2/3DtjrJG4N27BjSLQWoiBv171sK6a+JiWjp/7agxC2nCUP358AqzxkBUb5jX8g6CYLPdSKQTbC0weCwA=="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
+    <video id="vid" hidden></video>
+
+    <canvas id="canvas"></canvas>
+
+    <h1>여기 밑으로는 결과화면 출력</h1>
+
+    <img src="" />
+  </body>
+  <script src="/static/js/websocket.js"></script>
+  <script src="/static/js/camera.js"></script>
+  <script src="/static/js/streaming.js"></script>
+  <script src="/static/js/reciever.js"></script>
+</html>

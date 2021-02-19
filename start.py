@@ -1,1 +1,1 @@
-print("pink kow starts from here")
+print("pink cow starts from here")
