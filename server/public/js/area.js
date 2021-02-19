@@ -7,6 +7,8 @@ var recTLX,
 var cropWidth,
   cropHeight = 0;
 var cropCanvas = document.getElementById("canvas-crop");
+cropCanvas.height = cropHeight;
+cropCanvas.width = cropWidth;
 var cropCtx = cropCanvas.getContext("2d");
 var areaSet = false;
 var streamingStatus = false;
