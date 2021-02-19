@@ -23,57 +23,23 @@
 
     <p><button id="cam-scan">SCAN</button></p>
 
-    <div class="row">
-      <p id="jump" hidden>Jump to <a href="#bottom">bottom</a> of table</p>
-      <table
-        class="table-condensed table-bordered table-striped"
-        id="results"
-        hidden
-      >
-        <tr>
-          <th>Browser</th>
-          <th>Device</th>
-          <th>Res Name</th>
-          <th>Ratio</th>
-          <th>Ask</th>
-          <th>Actual</th>
-          <th>Status</th>
-          <th class="hidden">deviceIndex</th>
-          <th class="hidden">resIndex</th>
-        </tr>
-      </table>
-      <h5 class="pfin" hidden>
-        <a href=".">Refresh</a> to run test again with same or different
-        parameters (you'll lose the table above).
-      </h5>
-      <h5 class="pfin" hidden>
-        Export results to a CSV file here:
-        <a id="csvOut" href="#" class="btn btn-link btn-md"
-          >gumResTestExport.csv</a
-        >
-      </h5>
-    </div>
-
     <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
     <video id="vid" hidden></video>
+    <div position="relative">
+      <canvas id="area-canvas"></canvas> <canvas id="canvas"></canvas>
+    </div>
+    <canvas id="canvas-crop" hidden></canvas>
+    <div>
+      <p>
+        <button id="clear-button">CLEAR</button>
+        <button id="set-button">SET</button>
+      </p>
 
-    <canvas id="canvas"></canvas>
-    <p><button id="clear-button">clear</button></p>
-    Top-Left Point x:
-    <p id="rec-xvalue"><br /></p>
-    Top-Left Point y:
-    <p id="rec-yvalue"><br /></p>
-    Rectangle Width:
-    <p id="rec-width"><br /></p>
-    Rectangle Height:
-    <p id="rec-height"><br /></p>
-    <p id="test1"></p>
-    <p id="test2"></p>
-
-    <p>
-      <button id="start-button">START</button>
-    </p>
-    <p><button id="stop-button">STOP</button></p>
+      <p>
+        <button id="start-button">START</button>
+      </p>
+      <p><button id="stop-button">STOP</button></p>
+    </div>
 
     <h1>여기 밑으로는 결과화면 출력</h1>
 
@@ -84,5 +50,4 @@
   <script src="/static/js/area.js"></script>
   <script src="/static/js/camera.js"></script>
   <script src="/static/js/streaming.js"></script>
-  <script src="/static/js/reciever.js"></script>
 </html>

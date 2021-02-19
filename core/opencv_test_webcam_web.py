@@ -57,7 +57,7 @@ if(len(imgCode) >1):
 
     frame = img
 
-    frame = cv2.flip(frame, 1)
+    
 
     faces = find_frontalfaces(frame)
     noses = find_noses(frame)

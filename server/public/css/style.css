@@ -4,11 +4,6 @@
 body {
   background-color: var(--background-color);
 }
-video {
-  width: 100%;
-  height: auto;
-}
-canvas {
-  width: 100%;
-  height: auto;
+#area-canvas {
+  position: absolute;
 }

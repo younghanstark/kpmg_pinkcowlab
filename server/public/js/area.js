@@ -1,26 +1,35 @@
-var mainCanvas = document.getElementById("canvas");
-var ctx = mainCanvas.getContext("2d");
+var mainCanvas = document.getElementById("area-canvas");
+var ctx_area = mainCanvas.getContext("2d");
+var recTLX,
+  recTLY,
+  recBRX,
+  recBRY = 0;
+var cropWidth,
+  cropHeight = 0;
+var cropCanvas = document.getElementById("canvas-crop");
+var cropCtx = cropCanvas.getContext("2d");
+var areaSet = false;
 
 mainCanvas.onmousedown = function (event) {
+  console.log(event);
+
   var topLeftX = event.offsetX;
   var topLeftY = event.offsetY;
 
   function updateRec(event) {
-    ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-    ctx.drawImage(video, 0, 0, mainCanvas.width, mainCanvas.height);
+    ctx_area.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+    //ctx_area.drawImage(video, 0, 0, mainCanvas.width, mainCanvas.height);
     var bottomRightX = event.offsetX;
     var bottomRightY = event.offsetY;
-    var recTLX = Math.min(topLeftX, bottomRightX);
-    var recTLY = Math.min(topLeftY, bottomRightY);
-    var recBRX = Math.max(topLeftX, bottomRightX);
-    var recBRY = Math.max(topLeftY, bottomRightY);
+    recTLX = Math.min(topLeftX, bottomRightX);
+    recTLY = Math.min(topLeftY, bottomRightY);
+    recBRX = Math.max(topLeftX, bottomRightX);
+    recBRY = Math.max(topLeftY, bottomRightY);
 
-    ctx.strokeRect(recTLX, recTLY, recBRX - recTLX, recBRY - recTLY);
+    cropWidth = recBRX - recTLX;
+    cropHeight = recBRY - recTLY;
 
-    document.getElementById("rec-xvalue").innerHTML = recTLX;
-    document.getElementById("rec-yvalue").innerHTML = recTLY;
-    document.getElementById("rec-width").innerHTML = recBRX - recTLX;
-    document.getElementById("rec-height").innerHTML = recBRY - recTLY;
+    ctx_area.strokeRect(recTLX, recTLY, cropWidth, cropHeight);
   }
 
   mainCanvas.addEventListener("mousemove", updateRec);
@@ -30,11 +39,51 @@ mainCanvas.onmousedown = function (event) {
   };
 };
 
+function CropImage() {
+  var canvas = document.getElementById("canvas");
+
+  img = new Image();
+
+  img.onload = function () {
+    var canvas = document.getElementById("canvas-crop");
+    canvas.width = cropWidth;
+    canvas.height = cropHeight;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(
+      img,
+      recTLX,
+      recTLY,
+      cropWidth,
+      cropHeight,
+      0,
+      0,
+      cropWidth,
+      cropHeight
+    );
+  };
+
+  img.src = canvas.toDataURL();
+}
+
+var setButton = document.getElementById("set-button");
+setButton.onclick = () => {
+  if (cropHeight == 0) {
+    alert("set the area");
+    return;
+  }
+  console.log("crop");
+  CropImage();
+  areaSet = true;
+};
 var clearButton = document.getElementById("clear-button");
 clearButton.onclick = function () {
-  ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-  document.getElementById("rec-xvalue").innerHTML = "<br>";
-  document.getElementById("rec-yvalue").innerHTML = "<br>";
-  document.getElementById("rec-width").innerHTML = "<br>";
-  document.getElementById("rec-height").innerHTML = "<br>";
+  cropCtx.clearRect(0, 0, cropWidth, cropHeight);
+  ctx_area.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+  cropHeight = 0;
+  cropWidth = 0;
+  recTLX = 0;
+  recTLY = 0;
+  recBRX = 0;
+  recBRY = 0;
+  areaSet = false;
 };

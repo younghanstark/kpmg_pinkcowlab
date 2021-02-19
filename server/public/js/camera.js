@@ -1,22 +1,24 @@
 var camSelection = document.getElementById("selectArea");
-//Global variables
-var video = document.getElementById("vid"); //where we will put & test our video output
-var deviceList = document.getElementById("devices"); //device list dropdown
-var devices = []; //getSources object to hold various camera options
+var video = document.getElementById("vid");
+var deviceList = document.getElementById("devices");
+var devices = [];
 var stream;
-var selectedCamera = []; //used to hold a camera's ID and other parameters
-var tests; //holder for our test results
-var r = 0; //used for iterating through the array
-var camNum = 0; //used for iterating through number of camera
-var scanning = false; //variable to show if we are in the middle of a scan
+var selectedCamera = [];
+var tests;
+var r = 0;
+var camNum = 0;
+var scanning = false;
 var height = 0;
 var width = 0;
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
+var mainCanvas = document.getElementById("area-canvas");
+var ctx_area = mainCanvas.getContext("2d");
 
 function gotDevices(deviceInfos) {
   camSelection.hidden = false;
-  let camcount = 1; //used for labeling if the device label is not enumerated
+  let camcount = 1;
+
   for (let i = 0; i !== deviceInfos.length; ++i) {
     let deviceInfo = deviceInfos[i];
     let option = document.createElement("option");
@@ -38,10 +40,8 @@ function errorCallback(error) {
 navigator.mediaDevices
   .getUserMedia({ audio: false, video: true })
   .then((mediaStream) => {
-    window.stream = mediaStream; // make globally available
     video.srcObject = mediaStream;
 
-    //Now enumerate devices
     navigator.mediaDevices
       .enumerateDevices()
       .then(gotDevices)
@@ -57,7 +57,6 @@ navigator.mediaDevices
   });
 
 if (document.location.hostname !== "localhost") {
-  //check if the user is using http vs. https & redirect to https if needed
   if (document.location.protocol !== "https:") {
     $(document).html("This doesn't work well on http. Redirecting to https");
     console.log("redirecting to https");
@@ -71,19 +70,15 @@ var scanButton = document.getElementById("cam-scan");
 
 scanButton.onclick = () => {
   console.log("scan");
-  document.getElementById("results").hidden = false;
-  document.getElementById("jump").hidden = false;
+
   tests = quickScan;
   scanning = true;
 
   if (devices) {
-    //run through the deviceList to see what is selected
     for (let deviceCount = 0, d = 0; d < deviceList.length; d++) {
       if (deviceList[d].selected) {
-        //if it is selected, check the label against the getSources array to select the proper ID
         for (let z = 0; z < devices.length; z++) {
           if (devices[z].value === deviceList[d].value) {
-            //just pass along the id and label
             let camera = {};
             camera.id = devices[z].value;
             camera.label = devices[z].text;
@@ -100,7 +95,6 @@ scanButton.onclick = () => {
       }
     }
 
-    //Make sure there is at least 1 camera selected before starting
     if (selectedCamera[0]) {
       gum(tests[r], selectedCamera[0]);
     } else {
@@ -113,9 +107,7 @@ scanButton.onclick = () => {
       };
       gum(tests[r], selectedCamera[0]);
     }
-  }
-  //if no device enumeration don't pass a Camera ID
-  else {
+  } else {
     selectedCamera[0] = { label: "Unknown" };
     gum(tests[r]);
   }
@@ -124,20 +116,18 @@ scanButton.onclick = () => {
 function gum(candidate, device) {
   console.log("trying " + candidate.label + " on " + device.label);
 
-  //Kill any running streams;
   if (stream) {
     stream.getTracks().forEach((track) => {
       track.stop();
     });
   }
 
-  //create constraints object
   let constraints = {
     audio: false,
     video: {
       deviceId: device.id ? { exact: device.id } : undefined,
-      width: { exact: candidate.width }, //new syntax
-      height: { exact: candidate.height }, //new syntax
+      width: { exact: candidate.width },
+      height: { exact: candidate.height },
     },
   };
 
@@ -156,10 +146,9 @@ function gum(candidate, device) {
         });
     },
     stream ? 200 : 0
-  ); //official examples had this at 200
+  );
 
   function gotStream(mediaStream) {
-    //change the video dimensions
     console.log(
       "Display size for " +
         candidate.label +
@@ -168,31 +157,27 @@ function gum(candidate, device) {
         "x" +
         candidate.height
     );
-    video.width = candidate.width;
-    video.height = candidate.height;
-    canvas.width = candidate.width;
-    canvas.height = candidate.height;
     height = candidate.height;
     width = candidate.width;
 
+    canvas.width = width;
+    canvas.height = height;
+    mainCanvas.height = height;
+    mainCanvas.width = width;
+
     scanning = false;
 
-    // make globally available
     video.srcObject = mediaStream;
 
     console.log("draw");
   }
 }
 
-//Save results to the candidate so
 function captureResults(status) {
-  if (!scanning)
-    //exit if scan is not active
-    return;
+  if (!scanning) return;
 
   r++;
 
-  //go to the next tests
   if (r < tests.length) {
     gum(tests[r], selectedCamera[camNum]);
   }
