@@ -9,6 +9,7 @@ var cropWidth,
 var cropCanvas = document.getElementById("canvas-crop");
 var cropCtx = cropCanvas.getContext("2d");
 var areaSet = false;
+var streamingStatus = false;
 
 mainCanvas.onmousedown = function (event) {
   console.log(event);
@@ -76,7 +77,12 @@ setButton.onclick = () => {
   areaSet = true;
 };
 var clearButton = document.getElementById("clear-button");
+
 clearButton.onclick = function () {
+  if (streamingStatus) {
+    alert("can't clear while streaming, you should stop first");
+    return;
+  }
   cropCtx.clearRect(0, 0, cropWidth, cropHeight);
   ctx_area.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
   cropHeight = 0;

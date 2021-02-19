@@ -10,7 +10,6 @@ var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var imageR = document.querySelector("img");
 var body = document.body;
-var streamingStatus = false;
 
 video.addEventListener(
   "play",
