@@ -11,17 +11,44 @@
   </head>
 
   <body>
+    <div id="selectArea" hidden>
+      <h4>Select camera(s) below:</h4>
+      <select
+        id="devices"
+        name="Video devices"
+        multiple
+        title="devices"
+      ></select>
+    </div>
+
+    <p><button id="cam-scan">SCAN</button></p>
+
     <h1>여기 밑으로 카메라 화면이 출력되어야 한다.</h1>
     <video id="vid" hidden></video>
+    <div position="relative">
+      <canvas id="area-canvas"></canvas><canvas id="result-canvas"></canvas>
+      <canvas id="canvas"></canvas>
+    </div>
+    <canvas id="canvas-crop" hidden></canvas>
+    <div>
+      <p>
+        <button id="clear-button">CLEAR</button>
+        <button id="set-button">SET</button>
+      </p>
 
-    <canvas id="canvas"></canvas>
+      <p>
+        <button id="start-button">START</button>
+      </p>
+      <p><button id="stop-button">STOP</button></p>
+    </div>
 
     <h1>여기 밑으로는 결과화면 출력</h1>
 
     <img src="" />
   </body>
+
   <script src="/static/js/websocket.js"></script>
+  <script src="/static/js/area.js"></script>
   <script src="/static/js/camera.js"></script>
   <script src="/static/js/streaming.js"></script>
-  <script src="/static/js/reciever.js"></script>
 </html>

@@ -1,50 +1,223 @@
-var width = 400;
-var height = 250;
+var camSelection = document.getElementById("selectArea");
+var video = document.getElementById("vid");
+var deviceList = document.getElementById("devices");
+var devices = [];
+var stream;
+var selectedCamera = [];
+var tests;
+var r = 0;
+var camNum = 0;
+var scanning = false;
+var height = 0;
+var width = 0;
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var mainCanvas = document.getElementById("area-canvas");
+var ctx_area = mainCanvas.getContext("2d");
+var resultCanvas = document.getElementById("result-canvas");
+var ctx_result = resultCanvas.getContext("2d");
 
-var constraints = {
-  audio: false,
-  video: { width: width, height: height },
-};
-var video = document.querySelector("video");
+const agt = navigator.userAgent.toLowerCase();
 
-//   console.log(navigator);
-//   console.log(navigator.mediaDevices);
+console.log(agt);
 
-//make mediaDevices to empty instance if necessary
+function gotDevices(deviceInfos) {
+  camSelection.hidden = false;
+  let camcount = 1;
 
-if (navigator.mediaDevices === undefined) {
-  navigator.mediaDevices = {};
+  for (let i = 0; i !== deviceInfos.length; ++i) {
+    let deviceInfo = deviceInfos[i];
+    let option = document.createElement("option");
+    option.value = deviceInfo.deviceId;
+    if (deviceInfo.kind === "videoinput") {
+      option.text = deviceInfo.label || "camera " + camcount;
+      devices.push(option);
+      deviceList.add(option);
+      camcount++;
+    }
+  }
+  console.log(deviceList);
 }
 
-if (navigator.mediaDevices.getUserMedia === undefined) {
-  navigator.mediaDevices.getUserMedia = function (contraints) {
-    //use legacy -> getUserMedia -> deprecated
-    var getUserMedia =
-      navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-    //worst case
-    if (!getUserMedia) {
-      return Promise.reject(
-        new Error("getUserMedia is not implemented in this browser")
-      );
-    }
-    return new Promise(function (resolve, reject) {
-      getUserMedia.call(navigator, constraints, resolve, reject);
-    });
-  };
+function errorCallback(error) {
+  console.log("navigator.getUserMedia error: ", error);
 }
 
 navigator.mediaDevices
-  .getUserMedia(constraints)
-  .then(function (mediaStream) {
+  .getUserMedia({ audio: false, video: true })
+  .then((mediaStream) => {
     video.srcObject = mediaStream;
 
-    //아래 코드 없으면 비디오 화면이 재생 안됨
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(gotDevices)
+      .catch(errorCallback);
+  })
+  .catch((error) => {
+    console.error("getUserMedia error!", error);
+  });
+
+if (document.location.hostname !== "localhost") {
+  if (document.location.protocol !== "https:") {
+    $(document).html("This doesn't work well on http. Redirecting to https");
+    console.log("redirecting to https");
+    document.location.href =
+      "https:" +
+      document.location.href.substring(document.location.protocol.length);
+  }
+}
+
+var scanButton = document.getElementById("cam-scan");
+
+scanButton.onclick = () => {
+  console.log("scan");
+
+  tests = quickScan;
+  scanning = true;
+
+  if (devices) {
+    for (let deviceCount = 0, d = 0; d < deviceList.length; d++) {
+      if (deviceList[d].selected) {
+        for (let z = 0; z < devices.length; z++) {
+          if (devices[z].value === deviceList[d].value) {
+            let camera = {};
+            camera.id = devices[z].value;
+            camera.label = devices[z].text;
+            selectedCamera[deviceCount] = camera;
+            console.log(
+              selectedCamera[deviceCount].label +
+                "[" +
+                selectedCamera[deviceCount].id +
+                "] selected"
+            );
+            deviceCount++;
+          }
+        }
+      }
+    }
+
+    if (selectedCamera[0]) {
+      gum(tests[r], selectedCamera[0]);
+    } else {
+      console.log("No camera selected. Defaulting to " + deviceList[0].text);
+      //$('button').prop("disabled",false);
+
+      selectedCamera[0] = {
+        id: deviceList[0].value,
+        label: deviceList[0].text,
+      };
+      gum(tests[r], selectedCamera[0]);
+    }
+  } else {
+    selectedCamera[0] = { label: "Unknown" };
+    gum(tests[r]);
+  }
+};
+
+function gum(candidate, device) {
+  console.log("trying " + candidate.label + " on " + device.label);
+
+  if (stream) {
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+  }
+
+  let constraints = {
+    audio: false,
+    video: {
+      deviceId: device.id ? { exact: device.id } : undefined,
+      width: { exact: candidate.width },
+      height: { exact: candidate.height },
+    },
+  };
+
+  setTimeout(
+    () => {
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(gotStream)
+
+        .catch((error) => {
+          console.log("getUserMedia error!", error);
+
+          if (scanning) {
+            captureResults("fail: " + error.name);
+          }
+        });
+    },
+    stream ? 200 : 0
+  );
+
+  function gotStream(mediaStream) {
+    console.log(
+      "Display size for " +
+        candidate.label +
+        ": " +
+        candidate.width +
+        "x" +
+        candidate.height
+    );
+    height = candidate.height;
+    width = candidate.width;
+
+    canvas.width = width;
+    canvas.height = height;
+    mainCanvas.height = height;
+    mainCanvas.width = width;
+    resultCanvas.width = width;
+    resultCanvas.height = height;
+
+    scanning = false;
+
+    video.srcObject = mediaStream;
     video.onloadedmetadata = function (e) {
       video.play();
-      //before.src = getFrame
     };
-  })
-  .catch(function (err) {
-    console.log(err.name + ": " + err.message);
-  });
+
+    console.log("draw");
+  }
+}
+
+function captureResults(status) {
+  if (!scanning) return;
+
+  r++;
+
+  if (r < tests.length) {
+    gum(tests[r], selectedCamera[camNum]);
+  }
+}
+
+const quickScan = [
+  {
+    label: "360p(nHD)",
+    width: 640,
+    height: 360,
+    ratio: "16:9",
+  },
+  {
+    label: "CIF",
+    width: 352,
+    height: 288,
+    ratio: "4:3",
+  },
+  {
+    label: "QVGA",
+    width: 320,
+    height: 240,
+    ratio: "4:3",
+  },
+  {
+    label: "QCIF",
+    width: 176,
+    height: 144,
+    ratio: "4:3",
+  },
+  {
+    label: "QQVGA",
+    width: 160,
+    height: 120,
+    ratio: "4:3",
+  },
+];
