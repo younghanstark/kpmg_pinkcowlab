@@ -1,0 +1,14 @@
+:root {
+  --background-color: green;
+}
+body {
+  background-color: var(--background-color);
+}
+#area-canvas {
+  position: absolute;
+  z-index: 100;
+}
+#result-canvas {
+  position: absolute;
+  z-index: 20;
+}
