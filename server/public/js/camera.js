@@ -17,6 +17,10 @@ var ctx_area = mainCanvas.getContext("2d");
 var resultCanvas = document.getElementById("result-canvas");
 var ctx_result = resultCanvas.getContext("2d");
 
+const agt = navigator.userAgent.toLowerCase();
+
+console.log(agt);
+
 function gotDevices(deviceInfos) {
   camSelection.hidden = false;
   let camcount = 1;
