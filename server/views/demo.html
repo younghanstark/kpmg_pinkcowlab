@@ -27,36 +27,48 @@
             </header>
       
             <main role="main" class="inner cover">
-                <h1 class="cover-heading"><strong>Demo</strong></h1>
-                <p>The most important thing is that everyone knows the usefulness of our service. Feel free to try our demo, think about the payment later.</p>
-                <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
-                <select class="form-select" id="devices" name="Video devices" title="devices">
-                    <option selected>Open to select available camera</option>
-                </select>
-                <p></p>
-                <h3 class="cover-heading"><strong>Selected Camera's Sight</strong></h3>
-                <video id="vid" hidden></video>
-                <div position="relative">
-                    <canvas id="area-canvas"></canvas><canvas id="result-canvas"></canvas>
-                    <canvas id="canvas"></canvas>
+                <div id="phase0" style="display: block">
+                    <h1 class="cover-heading"><strong>Demo</strong></h1>
                 </div>
-                <canvas id="canvas-crop" hidden></canvas>
-                <p></p>
-                <h3 class="cover-heading"><strong>Available Features</strong></h3>
-                <p>
-                    <button id="set-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-                        <i class="bi bi-brush"></i>
+                <div id="phase1" style="display: block">
+                    <p>The most important thing is that everyone knows the usefulness of our service. Feel free to try our demo, think about the payment later.</p>
+                    <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
+                    <p></p>
+                    <select class="form-select" id="devices" name="Video devices" title="devices">
+                        <option selected value="notselected">Open to select available camera</option>
+                        <option value="valid">Option to test</option>
+                    </select>
+                    <p></p>
+                    <div id="select-alert" style="display: none">Please select valid camera.</div>
+                    <p></p>
+                    <button id="phase1-next-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                        <i class="bi bi-check2"></i>
                     </button>
-                    <button id="clear-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-                        <i class="bi bi-eraser"></i>
-                    </button>
-                    <button id="start-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-                        <i class="bi bi-caret-right-fill"></i>
-                    </button>
-                    <button id="stop-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-                        <i class="bi bi-square-fill"></i>
-                    </button>
-                </p>
+                </div>
+                <div id="phase2" style="display: none">
+                    <h3 class="cover-heading"><strong>Selected Camera's Sight</strong></h3>
+                    <video id="vid" hidden></video>
+                    <div position="relative">
+                        <canvas id="area-canvas"></canvas><canvas id="result-canvas"></canvas>
+                        <canvas id="canvas"></canvas>
+                    </div>
+                    <canvas id="canvas-crop" hidden></canvas>
+                    <p>Menu</p>
+                    <p>
+                        <button id="set-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                            <i class="bi bi-crop"></i>
+                        </button>
+                        <button id="clear-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                            <i class="bi bi-eraser"></i>
+                        </button>
+                        <button id="start-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                            <i class="bi bi-caret-right-fill"></i>
+                        </button>
+                        <button id="stop-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                            <i class="bi bi-square-fill"></i>
+                        </button>
+                    </p>
+                </div>
             </main>
       
             <footer class="mastfoot mt-auto">
@@ -66,6 +78,7 @@
             </footer>
           </div>
     </body>
+    <script src="demopage.js"></script>
     <script src="/static/js/websocket.js"></script>
     <script src="/static/js/area.js"></script>
     <script src="/static/js/camera.js"></script>
