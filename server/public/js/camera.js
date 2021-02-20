@@ -3,7 +3,7 @@ var video = document.getElementById("vid");
 var deviceList = document.getElementById("devices");
 var devices = [];
 var stream;
-var selectedCamera = [];
+// var selectedCamera = [];
 var tests;
 var r = 0;
 var camNum = 0;
@@ -72,43 +72,32 @@ scanButton.onclick = () => {
   console.log("scan");
 
   tests = quickScan;
+  console.log(tests);
   scanning = true;
+
+  var camera = {};
 
   if (devices) {
     for (let deviceCount = 0, d = 0; d < deviceList.length; d++) {
       if (deviceList[d].selected) {
         for (let z = 0; z < devices.length; z++) {
           if (devices[z].value === deviceList[d].value) {
-            let camera = {};
             camera.id = devices[z].value;
             camera.label = devices[z].text;
-            selectedCamera[deviceCount] = camera;
-            console.log(
-              selectedCamera[deviceCount].label +
-                "[" +
-                selectedCamera[deviceCount].id +
-                "] selected"
-            );
-            deviceCount++;
+            console.log(camera.label + "[" + camera.id + "] selected");
+            break;
           }
         }
+        break;
       }
     }
-
-    if (selectedCamera[0]) {
-      gum(tests[r], selectedCamera[0]);
-    } else {
-      console.log("No camera selected. Defaulting to " + deviceList[0].text);
-      //$('button').prop("disabled",false);
-
-      selectedCamera[0] = {
-        id: deviceList[0].value,
-        label: deviceList[0].text,
-      };
-      gum(tests[r], selectedCamera[0]);
+    console.log(camera);
+    if (Object.keys(camera).length !== 0) {
+      gum(tests[r], camera);
     }
   } else {
     selectedCamera[0] = { label: "Unknown" };
+    console.log("3");
     gum(tests[r]);
   }
 
@@ -168,6 +157,10 @@ function gum(candidate, device) {
     mainCanvas.width = width;
     resultCanvas.width = width;
     resultCanvas.height = height;
+
+    var divCanvas = document.getElementById("div-canvas");
+    divCanvas.style.width = String(width) + "px";
+    divCanvas.style.height = String(height) + "px";
 
     scanning = false;
 
