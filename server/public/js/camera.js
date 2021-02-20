@@ -22,7 +22,6 @@ const agt = navigator.userAgent.toLowerCase();
 console.log(agt);
 
 function gotDevices(deviceInfos) {
-  camSelection.hidden = false;
   let camcount = 1;
 
   for (let i = 0; i !== deviceInfos.length; ++i) {
@@ -47,7 +46,7 @@ navigator.mediaDevices
   .getUserMedia({ audio: false, video: true })
   .then((mediaStream) => {
     video.srcObject = mediaStream;
-
+    console.log("in");
     navigator.mediaDevices
       .enumerateDevices()
       .then(gotDevices)
@@ -112,6 +111,8 @@ scanButton.onclick = () => {
     selectedCamera[0] = { label: "Unknown" };
     gum(tests[r]);
   }
+
+  gotoPhase2();
 };
 
 function gum(candidate, device) {
