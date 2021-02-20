@@ -8,7 +8,6 @@ var stopButton = document.getElementById("stop-button");
 var startButton = document.getElementById("start-button");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var imageR = document.querySelector("img");
 var body = document.body;
 
 video.addEventListener(
@@ -65,7 +64,7 @@ function stop() {
   console.log("stop");
   streamingStatus = false;
   ctx.drawImage(video, 0, 0, width, height);
-  imageR.src = "";
+
   console.log(streamingId);
   if (streamingId != null) {
     clearTimeout(streamingId);
