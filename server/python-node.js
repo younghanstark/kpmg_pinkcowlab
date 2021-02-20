@@ -1,7 +1,7 @@
 const { PythonShell } = require("python-shell");
 
 let options = {
-  pythonPath: "/usr/local/bin/python3",
+  pythonPath: "C:\\Users\\dudgk\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
   scriptPath: "../core",
 };
 
@@ -18,8 +18,6 @@ function launchPyshell(data, socket) {
     ////console.log("isdata : ", isData);
     if (isData != -1) {
       socket.emit("src", message);
-    } else if (message != "") {
-      socket.emit("warn", message);
     }
   });
 

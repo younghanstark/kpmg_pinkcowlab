@@ -26,30 +26,8 @@ function draw(video, ctx, width, height) {
   ctx.translate(-1 * width, 0);
   ctx.drawImage(video, 0, 0, width, height);
   ctx.restore();
-  img = new Image();
-  if (streamingId != null) {
-    img.onload = function () {
-      var canvas = document.getElementById("canvas-crop");
-      canvas.width = cropWidth;
-      canvas.height = cropHeight;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(
-        img,
-        recTLX,
-        recTLY,
-        cropWidth,
-        cropHeight,
-        0,
-        0,
-        cropWidth,
-        cropHeight
-      );
-    };
 
-    img.src = canvas.toDataURL();
-  }
-
-  sendString = cropCanvas.toDataURL();
+  sendString = canvas.toDataURL();
   setTimeout(draw, 10, video, ctx, width, height);
   //console.log(streamingId);
 }
@@ -114,24 +92,16 @@ ws_client.on("src", (newS) => {
     console.log(newS);
     var coord = newS.split(",");
     ctx_result.strokeStyle = "#ff0000";
-    ctx_result.strokeRect(
-      parseInt(coord[1]) + recTLX,
-      parseInt(coord[2]) + recTLY,
-      parseInt(coord[3]),
-      parseInt(coord[4])
-    );
+    
+    for (var i = 0; i < coord.length / 5; i++) {
+      ctx_result.strokeRect(
+        parseInt(coord[1+i*5+1]),
+        parseInt(coord[1+i*5+2]),
+        parseInt(coord[1+i*5+3]),
+        parseInt(coord[1+i*5+4])
+      )
+    }
   }
 
   ////console.log(newS)
-});
-ws_client.on("warn", (warn) => {
-  if (streamingStatus) {
-    if (warn === undefined || warn == "False") {
-      body.style.setProperty("--background-color", "red");
-    } else {
-      body.style.setProperty("--background-color", "green");
-    }
-  } else {
-    body.style.setProperty("--background-color", "green");
-  }
 });
