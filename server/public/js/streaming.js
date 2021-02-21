@@ -63,10 +63,7 @@ console.log(stopButton);
 console.log("checked");
 
 startButton.onclick = () => {
-
   startButton.className = "btn btn-default btn-circle btn-xl btn-selected";
-
-  
 
   streamingStatus = true;
   console.log("start");
@@ -100,8 +97,6 @@ function included(dx, dy, dw, dh, x, y, w, h) {
   return false;
 }
 
-
-
 let mask = "true";
 
 ws_client.on("src", (newS) => {
@@ -121,10 +116,8 @@ ws_client.on("src", (newS) => {
     resbox2[1].innerText = "true";
     resbox3[1].innerText = "true";
 
-
-    
     var userName = document.getElementById("name").value;
-    
+
     var mask = userName;
     var box1on = "true";
     var box2on = "true";
@@ -135,27 +128,35 @@ ws_client.on("src", (newS) => {
       var w = parseInt(coord[1 + i * 5 + 3]);
       var h = parseInt(coord[1 + i * 5 + 4]);
 
-      if (box1cur && included(recTLX1, recTLY1, cropWidth1, cropHeight1, x, y, w, h)) {
+      if (
+        box1cur &&
+        included(recTLX1, recTLY1, cropWidth1, cropHeight1, x, y, w, h)
+      ) {
         ctx_result.strokeRect(x, y, w, h);
         resbox1[1].innerText = "false";
         box1on = "false";
         console.log("aaaaa");
       }
-      if (box2cur && included(recTLX2, recTLY2, cropWidth2, cropHeight2, x, y, w, h)) {
+      if (
+        box2cur &&
+        included(recTLX2, recTLY2, cropWidth2, cropHeight2, x, y, w, h)
+      ) {
         ctx_result.strokeRect(x, y, w, h);
         resbox2[1].innerText = "false";
         box2on = "false";
       }
-      if (box3cur && included(recTLX3, recTLY3, cropWidth3, cropHeight3, x, y, w, h)) {
+      if (
+        box3cur &&
+        included(recTLX3, recTLY3, cropWidth3, cropHeight3, x, y, w, h)
+      ) {
         ctx_result.strokeRect(x, y, w, h);
         resbox3[1].innerText = "false";
         box3on = "false";
       }
     }
-    
-    mask += ",1," + box1on + ",2," + box2on + ",3," + box3on;
+
+    mask += ",1:" + box1on + ":2:" + box2on + ":3:" + box3on;
     ws_client.emit("result", mask);
-    
   }
 });
 
@@ -166,12 +167,3 @@ ws_client.on("clear", (clear) => {
   mask = userName + ",true";
   ws_client.emit("result", mask);
 });
-
-function included(x, y, w, h) {
-  if (recTLX < x && x + w < recTLX + cropWidth) {
-    if (recTLY < y && y + h < recTLY + cropHeight) {
-      return true;
-    }
-  }
-  return false;
-}
