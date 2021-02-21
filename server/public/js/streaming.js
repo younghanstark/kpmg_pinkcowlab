@@ -119,13 +119,16 @@ ws_client.on("src", (newS) => {
         ws_client.emit("result", mask);
       }
       else{
-         console.log("clear");
-         ctx_result.clearRect(0, 0, width, height);
-         var userName = document.getElementById("name").value;
-         mask = userName+",true";
-         ws_client.emit("result", mask);
+        console.log("checkckkckck");
+      }
+    //   else{
+    //      console.log("clear");
+    //      ctx_result.clearRect(0, 0, width, height);
+    //      var userName = document.getElementById("name").value;
+    //      mask = userName+",true";
+    //      ws_client.emit("result", mask);
+    // }
     }
-    
   }
 
   ////console.log(newS)
