@@ -164,6 +164,6 @@ ws_client.on("clear", (clear) => {
   console.log("clear");
   ctx_result.clearRect(0, 0, width, height);
   var userName = document.getElementById("name").value;
-  mask = userName + ",true";
+  mask = userName + ",1:true:2:true:3:true";
   ws_client.emit("result", mask);
 });
