@@ -72,7 +72,7 @@ startButton.onclick = () => {
     mask_recognition = "true";
     ws_client.emit("data", sendString);
     ////console.log(sendString);
-  }, 300);
+  }, 1000);
 };
 
 console.log(startButton);
