@@ -4,14 +4,19 @@ function gotoPhase2() {
   var cur_value = cameraselect.options[cur_option].value;
   var name_value = document.getElementById("name").value;
 
-  if (cur_value == "notselected" || name_value == "please enter name") {
+  if (cur_value == "notselected" ) {
     console.log("nownownownow");
-    var div_alert = document.getElementById("select-alert");
+    var div_alert = document.getElementById("select-alert-camera");
     div_alert.style.display = "block";
     div_alert.classList.remove("shake");
     div_alert.offsetWidth = div_alert.offsetWidth;
     div_alert.classList.add("shake");
-  } else if (name_value == "") {
+  } else if (name_value == "please enter name" || name_value == '') {
+      var div_alert = document.getElementById("select-alert-name");
+    div_alert.style.display = "block";
+    div_alert.classList.remove("shake");
+    div_alert.offsetWidth = div_alert.offsetWidth;
+    div_alert.classList.add("shake");
   } else {
     var div_phase1 = document.getElementById("phase1");
     div_phase1.style.display = "none";

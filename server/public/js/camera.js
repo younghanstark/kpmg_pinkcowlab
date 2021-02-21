@@ -71,7 +71,9 @@ var scanButton = document.getElementById("cam-scan");
 scanButton.onclick = () => {
   console.log("scan");
   var userName = document.getElementById("name").value;
-  if (userName != "please enter name") {
+  console.log(","+userName+",");
+  if (userName != "please enter name" || userName !== '') {
+    if(userName == ""){console.log(typeof(userName));}
     tests = quickScan;
     console.log(tests);
     scanning = true;
@@ -161,8 +163,8 @@ function gum(candidate, device) {
     resultCanvas.height = height;
 
     var divCanvas = document.getElementById("div-canvas");
-    divCanvas.style.width = String(width) + "px";
-    divCanvas.style.height = String(height) + "px";
+    divCanvas.style.width = String(width);
+    divCanvas.style.height = String(height) +"px";
 
     scanning = false;
 

@@ -14,11 +14,11 @@
     </option>
   </select>
   <p></p>
-  <div id="select-alert" style="display: none">Please select valid camera.</div>
+  <div id="select-alert-camera" style="display: none">Please select valid camera.</div>
+   <div id="select-alert-name" style="display: none">Please Enter Name.</div>
   <p></p>
   <h3 class="cover-heading"><strong>Enter Username</strong></h3>
-  
-    <input
+  <form><input
       type="text"
       id="name"
       name="name"
@@ -26,6 +26,7 @@
       required
       minlength="4"
       size="50"
+      onfocus = "this.value = ''"
     />
     <button
       id="cam-scan"
@@ -33,7 +34,8 @@
       class="btn btn-default btn-circle btn-xl btn-foo"
     >
       <i class="bi bi-check2"></i>
-    </button>
+    </button></form>
+    
   
 
   <p></p>
