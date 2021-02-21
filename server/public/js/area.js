@@ -71,7 +71,14 @@ function CropImage() {
 var setButton = document.getElementById("set-button");
 setButton.onclick = () => {
   if (cropHeight == 0) {
-    alert("set the area");
+    var anotherDiv = document.getElementById("clear-alert");
+    anotherDiv.style.display = "none";
+
+    var alertDiv = document.getElementById("set-alert");
+    alertDiv.style.display = "block";
+    alertDiv.classList.remove("shake");
+    alertDiv.offsetWidth = alertDiv.offsetWidth;
+    alertDiv.classList.add("shake");
     return;
   }
   console.log("crop");
@@ -82,7 +89,14 @@ var clearButton = document.getElementById("clear-button");
 
 clearButton.onclick = function () {
   if (streamingStatus) {
-    alert("can't clear while streaming, you should stop first");
+    var anotherDiv = document.getElementById("set-alert");
+    anotherDiv.style.display = "none";
+
+    var alertDiv = document.getElementById("clear-alert");
+    alertDiv.style.display = "block";
+    alertDiv.classList.remove("shake");
+    alertDiv.offsetWidth = alertDiv.offsetWidth;
+    alertDiv.classList.add("shake");
     return;
   }
   cropCtx.clearRect(0, 0, cropWidth, cropHeight);
