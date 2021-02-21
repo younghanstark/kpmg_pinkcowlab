@@ -12,7 +12,7 @@ Sub Mission 1: Correctly detecting people who are wearing masks in wrong ways
 Sub Mission 2: Providing more efficient way of detecting mask quickly in larger scales
 Sub Mission 3: Reduction of socioeconomic cost related to pandemic situation
 
-### How to Try in Our Server
+### How to Try Our Web app
 
 1. With your prefferd browser(We recommend Chrome), enter https://mymagam.com
    ![ex_screenshot](./img/step1.png)
@@ -39,7 +39,7 @@ Sub Mission 3: Reduction of socioeconomic cost related to pandemic situation
 
 ### How to get data from api
 
-1. With your prefferd browser(We recommend Chrome), enter https://mymagam.com/api/[your user name]
+1. GET https://mymagam.com/api/[your user name]
 1. You can get the current status of mask recognition
    ![ex_screenshot](./img/api.png)
 1. Use api to control IOT enabled Devices
