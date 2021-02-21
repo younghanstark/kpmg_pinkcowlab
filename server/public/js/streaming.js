@@ -140,9 +140,11 @@ ws_client.on("src", (newS) => {
   }
 });
 
-ws_client.on("clear", (clear) => {
-  console.log("clear");
-  ctx_result.clearRect(0, 0, width, height);
-  mask = "true";
-  ws_client.emit("result", mask);
-});
+function included(x, y, w, h) {
+  if (recTLX < x && x + w < recTLX + cropWidth) {
+    if (recTLY < y && y + h < recTLY + cropHeight) {
+      return true;
+    }
+  }
+  return false;
+}
