@@ -58,7 +58,14 @@ console.log("checked");
 
 startButton.onclick = () => {
   if (!areaSet) {
-    alert("set the area");
+    var anotherDiv = document.getElementById("clear-alert");
+    anotherDiv.style.display = "none";
+
+    var alertDiv = document.getElementById("set-alert");
+    alertDiv.style.display = "block";
+    alertDiv.classList.remove("shake");
+    alertDiv.offsetWidth = alertDiv.offsetWidth;
+    alertDiv.classList.add("shake");
     return;
   }
   streamingStatus = true;
@@ -92,16 +99,27 @@ ws_client.on("src", (newS) => {
     console.log(newS);
     var coord = newS.split(",");
     ctx_result.strokeStyle = "#ff0000";
-    
+
     for (var i = 0; i < coord.length / 5; i++) {
-      ctx_result.strokeRect(
-        parseInt(coord[1+i*5+1]),
-        parseInt(coord[1+i*5+2]),
-        parseInt(coord[1+i*5+3]),
-        parseInt(coord[1+i*5+4])
-      )
+      var curx = parseInt(coord[1 + i * 5 + 1]);
+      var cury = parseInt(coord[1 + i * 5 + 2]);
+      var curw = parseInt(coord[1 + i * 5 + 3]);
+      var curh = parseInt(coord[1 + i * 5 + 4]);
+
+      if (included(curx, cury, curw, curh)) {
+        ctx_result.strokeRect(curx, cury, curw, curh);
+      }
     }
   }
 
   ////console.log(newS)
 });
+
+function included(x, y, w, h) {
+  if (recTLX < x && x + w < recTLX + cropWidth) {
+    if (recTLY < y && y + h < recTLY + cropHeight) {
+      return true;
+    }
+  }
+  return false;
+}
