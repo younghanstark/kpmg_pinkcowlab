@@ -44,6 +44,7 @@ const server = http.createServer(app);
 
 const io = socketio(server, {
   allowRequest: (req, next) => {
+    console.log("next : ", next)
     console.log("req");
     console.log(req.rawHeaders[1]);
   },
