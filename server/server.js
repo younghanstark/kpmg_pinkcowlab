@@ -46,7 +46,7 @@ const io = socketio(server, {
   allowRequest: (req, next = (err, success) => {
     console.log(success);
   }) => {
-    console.log("next : ", next = )
+    
     console.log("req");
     console.log(req.rawHeaders[1]);
   },
