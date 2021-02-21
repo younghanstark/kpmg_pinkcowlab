@@ -43,7 +43,7 @@ app.get("/api", (req, res) => {
 const server = http.createServer(app);
 
 const io = socketio(server, {
-  allowRequest: (req) => {
+  allowRequest: (req, next) => {
     console.log("req");
     console.log(req.rawHeaders[1]);
   },
