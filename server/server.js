@@ -7,7 +7,12 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
+let mask = "true";
+
 app.get("/", (req, res) => res.sendFile(`${__dirname}/views/index.html`));
+app.get("/api", (req, res) => {
+  return res.send(mask);
+});
 
 const server = http.createServer(app);
 
@@ -20,6 +25,9 @@ io.on("connection", (socket) => {
   socket.on("data", (data, self) => {
     ////console.log(data)
     launchPyshell(data, socket);
+  });
+  socket.on("result", (data, self) => {
+    mask = data;
   });
 });
 
