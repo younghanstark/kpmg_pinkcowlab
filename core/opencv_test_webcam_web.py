@@ -71,17 +71,17 @@ if(len(imgCode) >1):
     #     for (x, y, w, h) in noses:
     #         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
+    indexNum = 0
+    resultString = ""
     if len(faces):
         for face in faces:
             for nose in noses:
                 if inside(range_limit(face), nose):
                     x, y, w, h = face
                     # cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                    fx = x
-                    fy = y
-                    fh = h
-                    fw = w
-                    mask = False
+                    resultString += ",data%d,%d,%d,%d,%d" % (indexNum, x, y, w, h)
+                    indexNum += 1
+
 
     
     # cv2.imshow('result', frame)
@@ -96,11 +96,7 @@ if(len(imgCode) >1):
     # retval, buffer = cv2.imencode('.jpg', frame)
     # jpg_as_text = base64.b64encode(buffer)
     # test = jpg_as_text.decode()
-    print("data"+","+str(fx)+","+str(fy)+','+str(fh)+','+str(fw))
-    print(mask)
-
-
-
+    print(resultString)
 
 # cap = cv2.VideoCapture(0)
 # cap.set(3, 640)

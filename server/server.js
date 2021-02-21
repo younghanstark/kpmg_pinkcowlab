@@ -7,7 +7,36 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
-app.get("/", (req, res) => res.sendFile(`${__dirname}/views/index.html`));
+
+var template = require('./public/js/template');
+var fs = require('fs');
+var url = require('url');
+
+app.get("/", function(request, response) {
+  var _url = request.url;
+  var queryData = url.parse(_url, true).query;
+  var title = queryData.content;
+
+  if (_url == '/') {
+    title = 'home';
+  }
+  if (_url == '/favicon.ico') {
+    return response.writeHead(404);
+  }
+  title += '.html';
+  
+  fs.readFile(`./views/${title}`, 'utf8', function(err, description){
+    var html = template.HTML(description);
+    response.end(html);
+  });
+
+let mask = "true";
+
+
+app.get("/api", (req, res) => {
+  return res.send(mask);
+
+});
 
 const server = http.createServer(app);
 
@@ -21,9 +50,13 @@ io.on("connection", (socket) => {
     ////console.log(data)
     launchPyshell(data, socket);
   });
+  socket.on("result", (data, self) => {
+    mask = data;
+  });
 });
 
 const PORT = process.env.PORT || 3000;
 
 server.listen(3000, () => console.log(`listening on port : ${PORT}`));
 app.use("/static", express.static("public"));
+app.use("/views", express.static("views"));

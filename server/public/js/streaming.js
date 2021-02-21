@@ -9,6 +9,7 @@ var startButton = document.getElementById("start-button");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var body = document.body;
+var mask_recognition = "true";
 
 video.addEventListener(
   "play",
@@ -26,30 +27,8 @@ function draw(video, ctx, width, height) {
   ctx.translate(-1 * width, 0);
   ctx.drawImage(video, 0, 0, width, height);
   ctx.restore();
-  img = new Image();
-  if (streamingId != null) {
-    img.onload = function () {
-      var canvas = document.getElementById("canvas-crop");
-      canvas.width = cropWidth;
-      canvas.height = cropHeight;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(
-        img,
-        recTLX,
-        recTLY,
-        cropWidth,
-        cropHeight,
-        0,
-        0,
-        cropWidth,
-        cropHeight
-      );
-    };
 
-    img.src = canvas.toDataURL();
-  }
-
-  sendString = cropCanvas.toDataURL();
+  sendString = canvas.toDataURL();
   setTimeout(draw, 10, video, ctx, width, height);
   //console.log(streamingId);
 }
@@ -80,7 +59,14 @@ console.log("checked");
 
 startButton.onclick = () => {
   if (!areaSet) {
-    alert("set the area");
+    var anotherDiv = document.getElementById("clear-alert");
+    anotherDiv.style.display = "none";
+
+    var alertDiv = document.getElementById("set-alert");
+    alertDiv.style.display = "block";
+    alertDiv.classList.remove("shake");
+    alertDiv.offsetWidth = alertDiv.offsetWidth;
+    alertDiv.classList.add("shake");
     return;
   }
   streamingStatus = true;
@@ -90,6 +76,7 @@ startButton.onclick = () => {
   streamingId = setInterval(() => {
     ////console.log(sendString);
     //console.log(sendString);
+    mask_recognition = "true";
     ws_client.emit("data", sendString);
     ////console.log(sendString);
   }, 500);
@@ -105,6 +92,8 @@ console.log(startButton);
 
 //client
 
+let mask = "true";
+
 ws_client.on("src", (newS) => {
   //console.log(newS);
   // set the base64 string to the src tag of the image
@@ -114,24 +103,29 @@ ws_client.on("src", (newS) => {
     console.log(newS);
     var coord = newS.split(",");
     ctx_result.strokeStyle = "#ff0000";
-    ctx_result.strokeRect(
-      parseInt(coord[1]) + recTLX,
-      parseInt(coord[2]) + recTLY,
-      parseInt(coord[3]),
-      parseInt(coord[4])
-    );
+
+    for (var i = 0; i < coord.length / 5; i++) {
+      var curx = parseInt(coord[1 + i * 5 + 1]);
+      var cury = parseInt(coord[1 + i * 5 + 2]);
+      var curw = parseInt(coord[1 + i * 5 + 3]);
+      var curh = parseInt(coord[1 + i * 5 + 4]);
+
+      if (included(curx, cury, curw, curh)) {
+        ctx_result.strokeRect(curx, cury, curw, curh);
+      }
+    }
+    mask = "false";
+    ws_client.emit("result", mask);
   }
 
   ////console.log(newS)
 });
-ws_client.on("warn", (warn) => {
-  if (streamingStatus) {
-    if (warn === undefined || warn == "False") {
-      body.style.setProperty("--background-color", "red");
-    } else {
-      body.style.setProperty("--background-color", "green");
+
+function included(x, y, w, h) {
+  if (recTLX < x && x + w < recTLX + cropWidth) {
+    if (recTLY < y && y + h < recTLY + cropHeight) {
+      return true;
     }
-  } else {
-    body.style.setProperty("--background-color", "green");
   }
-});
+  return false;
+}

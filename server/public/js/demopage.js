@@ -1,5 +1,4 @@
 function gotoPhase2() {
-    console.log("aaaaa");
     var cameraselect = document.getElementById("devices");
     var cur_option = cameraselect.options.selectedIndex;
     var cur_value = cameraselect.options[cur_option].value;

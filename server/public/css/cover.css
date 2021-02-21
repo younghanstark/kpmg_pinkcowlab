@@ -44,6 +44,17 @@
     padding: 0;
 }
 
+.btn-foo:hover {
+  color: white;
+  transition: 0.3s;
+  font-size: 30px;
+}
+
+.btn-foo:not(:hover){
+  transition: 0.3s;
+  font-size: 24px;
+}
+
 /* Links */
 a,
 a:focus,
