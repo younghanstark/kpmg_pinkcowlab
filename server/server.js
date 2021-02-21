@@ -7,16 +7,16 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
-let mask = "true";
+let mask_api = {};
 
 var template = require("./public/js/template");
 var fs = require("fs");
 var url = require("url");
 
 https: app.get("/", function (request, response) {
-  const ip =
-    request.headers["x-forwarded-for"] || request.connection.remoteAddress;
-  console.log(ip);
+  // const ip =
+  //   request.headers["x-forwarded-for"] || request.connection.remoteAddress;
+  // console.log(ip);
 
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
@@ -36,21 +36,19 @@ https: app.get("/", function (request, response) {
   });
 });
 
-app.get("/api", (req, res) => {
-  return res.send(mask);
+app.get(`api/:userName`, (req, res) => {
+  var userName = req.params.userName;
+
+  if(userName in mask_api){
+    return res.send(mask_api[userName]);
+  }
+  else{return res.writeHead(404);}
+  
 });
 
 const server = http.createServer(app);
 
-const io = socketio(server, {
-  allowRequest: (req, next = (err, success) => {
-    console.log(success);
-  }) => {
-    
-    console.log("req");
-    console.log(req.rawHeaders[1]);
-  },
-});
+const io = socketio(server);
 
 io.on("connection", (socket) => {
   const { url } = socket.request;
@@ -61,7 +59,11 @@ io.on("connection", (socket) => {
     launchPyshell(data, socket);
   });
   socket.on("result", (data, self) => {
-    mask = data;
+    let maskStatus = data.split(",");
+    console.log(mask_api);
+    
+      mask_api[maskStatus[0]] = maskStatus[1];
+    
   });
 });
 

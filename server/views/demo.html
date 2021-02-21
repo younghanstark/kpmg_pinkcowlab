@@ -1,56 +1,100 @@
 <div id="phase0" style="display: block">
-    <h1 class="cover-heading"><strong>Demo</strong></h1>
+  <h1 class="cover-heading"><strong>Demo</strong></h1>
 </div>
 <div id="phase1" style="display: block">
-    <p>
-        The most important thing is that everyone knows the usefulness of
-        our service. Feel free to try our demo, think about the payment
-        later.
-    </p>
-    <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
-    <p></p>
-    <select class="form-select" id="devices" name="Video devices" title="devices">
-        <option selected value="notselected">
-            Open to select available camera option.
-        </option>
-    </select>
-    <p></p>
-    <div id="select-alert" style="display: none">
-        Please select valid camera.
-    </div>
-    <p></p>
-    <button id="cam-scan" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-        <i class="bi bi-check2"></i>
+  <p>
+    The most important thing is that everyone knows the usefulness of our
+    service. Feel free to try our demo, think about the payment later.
+  </p>
+  <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
+  <p></p>
+  <select class="form-select" id="devices" name="Video devices" title="devices">
+    <option selected value="notselected">
+      Open to select available camera option.
+    </option>
+  </select>
+  <p></p>
+  <div id="select-alert" style="display: none">Please select valid camera.</div>
+  <p></p>
+  <h3 class="cover-heading"><strong>Enter Username</strong></h3>
+  <form>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value="please enter name"
+      required
+      minlength="4"
+      size="50"
+    />
+    <button id = "name-check">name check</button>
+    <button
+      id="cam-scan"
+      type="button"
+      class="btn btn-default btn-circle btn-xl btn-foo"
+    >
+      <i class="bi bi-check2"></i>
     </button>
+  </form>
+
+  <p></p>
+
+  <p></p>
 </div>
 <div id="phase2" style="display: none">
-    <h3 class="cover-heading" style="display: block">
-        <strong>Selected Camera's Sight</strong>
-    </h3>
-    <video id="vid" hidden></video>
-    <div id="div-canvas" class="position-relative" style="display: block">
-        <canvas id="area-canvas" style="display: block; z-index: 100"
-            class="position-absolute top-50 start-50 translate-middle"></canvas>
-        <canvas id="result-canvas" style="display: block; z-index: 20"
-            class="position-absolute top-50 start-50 translate-middle"></canvas>
-        <canvas id="canvas" style="display: block" class="position-absolute top-50 start-50 translate-middle"></canvas>
-    </div>
-    <canvas id="canvas-crop" hidden></canvas>
-    <p></p>
-    <p>
-        <button id="set-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-check2"></i>
-        </button>
-        <button id="clear-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-eraser"></i>
-        </button>
-        <button id="start-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-caret-right-fill"></i>
-        </button>
-        <button id="stop-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-square-fill"></i>
-        </button>
-    </p>
+  <h3 class="cover-heading" style="display: block">
+    <strong>Selected Camera's Sight</strong>
+  </h3>
+  <video id="vid" hidden></video>
+  <div id="div-canvas" class="position-relative" style="display: block">
+    <canvas
+      id="area-canvas"
+      style="display: block; z-index: 100"
+      class="position-absolute top-50 start-50 translate-middle"
+    ></canvas>
+    <canvas
+      id="result-canvas"
+      style="display: block; z-index: 20"
+      class="position-absolute top-50 start-50 translate-middle"
+    ></canvas>
+    <canvas
+      id="canvas"
+      style="display: block"
+      class="position-absolute top-50 start-50 translate-middle"
+    ></canvas>
+  </div>
+  <canvas id="canvas-crop" hidden></canvas>
+  <p></p>
+  <p>
+    <button
+      id="set-button"
+      type="button"
+      class="btn btn-default btn-circle btn-xl btn-foo"
+    >
+      <i class="bi bi-check2"></i>
+    </button>
+    <button
+      id="clear-button"
+      type="button"
+      class="btn btn-default btn-circle btn-xl btn-foo"
+    >
+      <i class="bi bi-eraser"></i>
+    </button>
+    <button
+      id="start-button"
+      type="button"
+      class="btn btn-default btn-circle btn-xl btn-foo"
+    >
+      <i class="bi bi-caret-right-fill"></i>
+    </button>
+    <button
+      id="stop-button"
+      type="button"
+      class="btn btn-default btn-circle btn-xl btn-foo"
+    >
+      <i class="bi bi-square-fill"></i>
+    </button>
+  </p>
 </div>
 <script src="/static/js/demopage.js"></script>
 <script src="/static/js/websocket.js"></script>
