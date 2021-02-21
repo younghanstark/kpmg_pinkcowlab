@@ -39,13 +39,13 @@ https: app.get("/", function (request, response) {
 app.get(`/api/:userName`, (req, res) => {
   var userName = req.params.userName;
 
-  if(userName in mask_api){
-    let result_object = {}
-    result_object[userName]= mask_api[userName];
-    return res.send(JSON.stringfy(result_object));
+  if (userName in mask_api) {
+    let result_object = {};
+    result_object[userName] = mask_api[userName];
+    return res.send(mask_api[userName]);
+  } else {
+    return res.writeHead(404);
   }
-  else{return res.writeHead(404);}
-  
 });
 
 const server = http.createServer(app);
@@ -63,9 +63,8 @@ io.on("connection", (socket) => {
   socket.on("result", (data, self) => {
     let maskStatus = data.split(",");
     console.log(mask_api);
-    
-      mask_api[maskStatus[0]] = maskStatus[1];
-    
+
+    mask_api[maskStatus[0]] = maskStatus[1];
   });
 });
 
