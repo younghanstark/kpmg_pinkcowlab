@@ -68,12 +68,24 @@ if (document.location.hostname !== "localhost") {
 
 var scanButton = document.getElementById("cam-scan");
 
+document.addEventListener(
+  "keydown",
+  function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+  },
+  true
+);
+
 scanButton.onclick = () => {
   console.log("scan");
   var userName = document.getElementById("name").value;
-  console.log(","+userName+",");
-  if (userName != "please enter name" || userName !== '') {
-    if(userName == ""){console.log(typeof(userName));}
+  console.log("," + userName + ",");
+  if (userName != "please enter name" || userName !== "") {
+    if (userName == "") {
+      console.log(typeof userName);
+    }
     tests = quickScan;
     console.log(tests);
     scanning = true;
@@ -164,7 +176,7 @@ function gum(candidate, device) {
 
     var divCanvas = document.getElementById("div-canvas");
     divCanvas.style.width = String(width);
-    divCanvas.style.height = String(height) +"px";
+    divCanvas.style.height = String(height) + "px";
 
     scanning = false;
 

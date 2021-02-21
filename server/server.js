@@ -40,7 +40,9 @@ app.get(`/api/:userName`, (req, res) => {
   var userName = req.params.userName;
 
   if(userName in mask_api){
-    return res.send(mask_api[userName]);
+    let result_object = {}
+    result_object[userName]= mask_api[userName];
+    return res.send(JSON.stringfy(result_object));
   }
   else{return res.writeHead(404);}
   
