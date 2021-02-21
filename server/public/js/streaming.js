@@ -9,6 +9,7 @@ var startButton = document.getElementById("start-button");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var body = document.body;
+var mask_recognition = "true";
 
 video.addEventListener(
   "play",
@@ -75,6 +76,7 @@ startButton.onclick = () => {
   streamingId = setInterval(() => {
     ////console.log(sendString);
     //console.log(sendString);
+    mask_recognition = "true";
     ws_client.emit("data", sendString);
     ////console.log(sendString);
   }, 500);
@@ -89,6 +91,8 @@ console.log(startButton);
 // }
 
 //client
+
+let mask = "true";
 
 ws_client.on("src", (newS) => {
   //console.log(newS);
@@ -110,6 +114,8 @@ ws_client.on("src", (newS) => {
         ctx_result.strokeRect(curx, cury, curw, curh);
       }
     }
+    mask = "false";
+    ws_client.emit("result", mask);
   }
 
   ////console.log(newS)
