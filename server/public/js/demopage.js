@@ -1,4 +1,4 @@
-var chkbtn_phase1 = document.getElementById("phase1-next-button");
+var chkbtn_phase1 = document.getElementById("cam-scan");
 chkbtn_phase1.onclick = function() {
     var cameraselect = document.getElementById("devices");
     var cur_option = cameraselect.options.selectedIndex;
