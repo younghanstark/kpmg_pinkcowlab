@@ -36,7 +36,7 @@ https: app.get("/", function (request, response) {
   });
 });
 
-app.get(`api/:userName`, (req, res) => {
+app.get(`/api/:userName`, (req, res) => {
   var userName = req.params.userName;
 
   if(userName in mask_api){
