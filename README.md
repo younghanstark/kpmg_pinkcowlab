@@ -1,5 +1,5 @@
 ## MaGam: Mask Recognition Project
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)![](https://img.shields.io/github/issues/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/issues-closed/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/languages/count/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/contributors/ziinxed/kpmg_pinkcowlab)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://img.shields.io/github/issues/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/issues-closed/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/languages/count/ziinxed/kpmg_pinkcowlab) ![](https://img.shields.io/github/contributors/ziinxed/kpmg_pinkcowlab)
 
 
 Project for KPMG Ideathon 2021  
