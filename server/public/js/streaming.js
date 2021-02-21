@@ -117,9 +117,9 @@ ws_client.on("src", (newS) => {
     var resbox1 = document.getElementById("res-box1").children;
     var resbox2 = document.getElementById("res-box2").children;
     var resbox3 = document.getElementById("res-box3").children;
-    resbox1[1].innerText = "true";
-    resbox2[1].innerText = "true";
-    resbox3[1].innerText = "true";
+    resbox1[1].innerText = "Mask";
+    resbox2[1].innerText = "Mask";
+    resbox3[1].innerText = "Mask";
 
 
     
@@ -137,23 +137,23 @@ ws_client.on("src", (newS) => {
 
       if (box1cur && included(recTLX1, recTLY1, cropWidth1, cropHeight1, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
-        resbox1[1].innerText = "false";
+        resbox1[1].innerText = "No Mask";
         box1on = "false";
         console.log("aaaaa");
       }
       if (box2cur && included(recTLX2, recTLY2, cropWidth2, cropHeight2, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
-        resbox2[1].innerText = "false";
+        resbox2[1].innerText = "No Mask";
         box2on = "false";
       }
       if (box3cur && included(recTLX3, recTLY3, cropWidth3, cropHeight3, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
-        resbox3[1].innerText = "false";
+        resbox3[1].innerText = "No Mask";
         box3on = "false";
       }
     }
     
-    mask += ",1," + box1on + ",2," + box2on + ",3," + box3on;
+    mask += ",1:" + box1on + ":2:" + box2on + ":3:" + box3on;
     ws_client.emit("result", mask);
     
   }
@@ -166,12 +166,3 @@ ws_client.on("clear", (clear) => {
   mask = userName + ",true";
   ws_client.emit("result", mask);
 });
-
-function included(x, y, w, h) {
-  if (recTLX < x && x + w < recTLX + cropWidth) {
-    if (recTLY < y && y + h < recTLY + cropHeight) {
-      return true;
-    }
-  }
-  return false;
-}

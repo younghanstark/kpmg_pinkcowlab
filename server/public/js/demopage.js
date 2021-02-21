@@ -1,34 +1,29 @@
 function gotoPhase2() {
-
     var cameraselect = document.getElementById("devices");
     var cur_option = cameraselect.options.selectedIndex;
     var cur_value = cameraselect.options[cur_option].value;
     var name_value = document.getElementById("name").value;
-  
-     if (cur_value == "notselected" ) {
-    console.log("nownownownow");
-    var div_alert = document.getElementById("select-alert-camera");
-    div_alert.style.display = "block";
-    div_alert.classList.remove("shake");
-    div_alert.offsetWidth = div_alert.offsetWidth;
-    div_alert.classList.add("shake");
-  } else if (name_value == "please enter name" || name_value == '') {
-      var div_alert = document.getElementById("select-alert-name");
-    div_alert.style.display = "block";
-    div_alert.classList.remove("shake");
-    div_alert.offsetWidth = div_alert.offsetWidth;
-    div_alert.classList.add("shake");
-  } else {
-    var div_phase1 = document.getElementById("phase1");
-    div_phase1.style.display = "none";
-    var div_phase2 = document.getElementById("phase2");
-    div_phase2.style.display = "block";
-  }
+
+    if (cur_value == "notselected") {
+        console.log("nownownownow");
+        var div_alert = document.getElementById("select-alert-camera");
+        div_alert.style.display = "block";
+        div_alert.classList.remove("shake");
+        div_alert.offsetWidth = div_alert.offsetWidth;
+        div_alert.classList.add("shake");
+    } else if (name_value == "please enter name" || name_value == '') {
+        var div_alert = document.getElementById("select-alert-name");
+        div_alert.style.display = "block";
+        div_alert.classList.remove("shake");
+        div_alert.offsetWidth = div_alert.offsetWidth;
+        div_alert.classList.add("shake");
+    } else {
+        var div_phase1 = document.getElementById("phase1");
+        div_phase1.style.display = "none";
+        var div_phase2 = document.getElementById("phase2");
+        div_phase2.style.display = "block";
+    }
 }
-
-
-
-
 
 var box1canvas = document.getElementById("area-canvas1");
 var box1ctx = box1canvas.getContext("2d");
@@ -37,7 +32,7 @@ var box2ctx = box2canvas.getContext("2d");
 var box3canvas = document.getElementById("area-canvas3");
 var box3ctx = box3canvas.getContext("2d");
 
-var recTLX1, recTLY1, recBRX1, recBRY1, cropWidth1=0, cropHeight1=0;
+var recTLX1, recTLY1, recBRX1, recBRY1, cropWidth1 = 0, cropHeight1 = 0;
 box1canvas.onmousedown = function (event) {
     box1ctx.strokeStyle = "red";
 
@@ -64,6 +59,10 @@ box1canvas.onmousedown = function (event) {
     box1canvas.onmouseup = function (event) {
         box1canvas.removeEventListener("mousemove", updateRec);
     };
+
+    box1canvas.onmouseleave = function (event) {
+        box1canvas.removeEventListener("mousemove", updateRec);
+    };
 };
 
 var dom1 = document.getElementById("dom-box1").children;
@@ -71,14 +70,29 @@ var box1name = dom1[0].children[0].value;
 var box1draw = dom1[1].children[0];
 var box1clear = dom1[2].children[0];
 var box1cur = false;
+
+var dom2 = document.getElementById("dom-box2").children;
+var box2name = dom2[0].children[0].value;
+var box2draw = dom2[1].children[0];
+var box2clear = dom2[2].children[0];
+var box2cur = false;
+
+var dom3 = document.getElementById("dom-box3").children;
+var box3draw = dom3[1].children[0];
+var box3clear = dom3[2].children[0];
+var box3cur = false;
+
 box1draw.onclick = function () {
+    box1draw.className = "btn btn-default btn-circle btn-xl btn-selected";
+    box2draw.className = "btn btn-default btn-circle btn-xl btn-foo";
+    box3draw.className = "btn btn-default btn-circle btn-xl btn-foo";
     box1cur = true;
     box1canvas.style.zIndex = 150;
     box2canvas.style.zIndex = 50;
     box3canvas.style.zIndex = 50;
 }
 box1clear.onclick = function () {
-    if (cropWidth1!=0&&cropHeight1!=0) {
+    if (cropWidth1 != 0 && cropHeight1 != 0) {
         box1cur = false;
         box1ctx.clearRect(0, 0, box1canvas.width, box1canvas.height);
         cropHeight1 = 0;
@@ -90,7 +104,7 @@ box1clear.onclick = function () {
     }
 }
 
-var recTLX2, recTLY2, recBRX2, recBRY2, cropWidth2=0, cropHeight2=0;
+var recTLX2, recTLY2, recBRX2, recBRY2, cropWidth2 = 0, cropHeight2 = 0;
 box2canvas.onmousedown = function (event) {
     box2ctx.strokeStyle = "green";
 
@@ -117,21 +131,24 @@ box2canvas.onmousedown = function (event) {
     box2canvas.onmouseup = function (event) {
         box2canvas.removeEventListener("mousemove", updateRec);
     };
+
+    box2canvas.onmouseleave = function (event) {
+        box2canvas.removeEventListener("mousemove", updateRec);
+    };
 };
 
-var dom2 = document.getElementById("dom-box2").children;
-var box2name = dom2[0].children[0].value;
-var box2draw = dom2[1].children[0];
-var box2clear = dom2[2].children[0];
-var box2cur = false;
+
 box2draw.onclick = function () {
+    box1draw.className = "btn btn-default btn-circle btn-xl btn-foo";
+    box2draw.className = "btn btn-default btn-circle btn-xl btn-selected";
+    box3draw.className = "btn btn-default btn-circle btn-xl btn-foo";
     box2cur = true;
     box1canvas.style.zIndex = 50;
     box2canvas.style.zIndex = 150;
     box3canvas.style.zIndex = 50;
 }
 box2clear.onclick = function () {
-    if (cropWidth2!=0&&cropHeight2!=0) {
+    if (cropWidth2 != 0 && cropHeight2 != 0) {
         box2cur = false;
         box2ctx.clearRect(0, 0, box2canvas.width, box2canvas.height);
         cropHeight2 = 0;
@@ -143,7 +160,7 @@ box2clear.onclick = function () {
     }
 }
 
-var recTLX3, recTLY3, recBRX3, recBRY3, cropWidth3=0, cropHeight3=0;
+var recTLX3, recTLY3, recBRX3, recBRY3, cropWidth3 = 0, cropHeight3 = 0;
 box3canvas.onmousedown = function (event) {
     box3ctx.strokeStyle = "blue";
 
@@ -171,20 +188,24 @@ box3canvas.onmousedown = function (event) {
     box3canvas.onmouseup = function (event) {
         box3canvas.removeEventListener("mousemove", updateRec);
     };
+
+    box3canvas.onmouseleave = function (event) {
+        box3canvas.removeEventListener("mousemove", updateRec);
+    };
 };
 
-var dom3 = document.getElementById("dom-box3").children;
-var box3draw = dom3[1].children[0];
-var box3clear = dom3[2].children[0];
-var box3cur = false;
+
 box3draw.onclick = function () {
+    box1draw.className = "btn btn-default btn-circle btn-xl btn-foo";
+    box2draw.className = "btn btn-default btn-circle btn-xl btn-foo";
+    box3draw.className = "btn btn-default btn-circle btn-xl btn-selected";
     box3cur = true;
     box1canvas.style.zIndex = 50;
     box2canvas.style.zIndex = 50;
     box3canvas.style.zIndex = 150;
 }
 box3clear.onclick = function () {
-    if (cropWidth3!=0&&cropHeight3!=0) {
+    if (cropWidth3 != 0 && cropHeight3 != 0) {
         box3cur = false;
         box3ctx.clearRect(0, 0, box3canvas.width, box3canvas.height);
         cropHeight3 = 0;
