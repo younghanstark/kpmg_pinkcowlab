@@ -24,7 +24,7 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body class="text-center">
+  <body class="text-center" id="body-content">
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
@@ -73,7 +73,9 @@
             name="Video devices"
             title="devices"
           >
-          <option selected value="notselected">Open to select available camera option.</option>
+            <option selected value="notselected">
+              Open to select available camera option.
+            </option>
           </select>
           <p></p>
           <div id="select-alert" style="display: none">
@@ -89,14 +91,26 @@
           </button>
         </div>
         <div id="phase2" style="display: none">
-          <h3 class="cover-heading">
+          <h3 class="cover-heading" style="display: block">
             <strong>Selected Camera's Sight</strong>
           </h3>
           <video id="vid" hidden></video>
-          <div class="position-relative">
-            <canvas id="area-canvas" class = "position-absolute"></canvas>
-            <canvas id="result-canvas" class = "position-absolute"></canvas>
-            <canvas id="canvas" class = "position-absolute"></canvas>
+          <div id="div-canvas" class="position-relative" style="display: block">
+            <canvas
+              id="area-canvas"
+              style="display: block; z-index: 100"
+              class="position-absolute top-50 start-50 translate-middle"
+            ></canvas>
+            <canvas
+              id="result-canvas"
+              style="display: block; z-index: 20"
+              class="position-absolute top-50 start-50 translate-middle"
+            ></canvas>
+            <canvas
+              id="canvas"
+              style="display: block"
+              class="position-absolute top-50 start-50 translate-middle"
+            ></canvas>
           </div>
           <canvas id="canvas-crop" hidden></canvas>
           <p>Menu</p>
@@ -106,7 +120,7 @@
               type="button"
               class="btn btn-default btn-circle btn-xl btn-foo"
             >
-              <i class="bi bi-crop"></i>
+              <i class="bi bi-check2"></i>
             </button>
             <button
               id="clear-button"
@@ -140,6 +154,7 @@
       </footer>
     </div>
   </body>
+  <script src="/static/js/content.js"></script>
   <script src="/static/js/demopage.js"></script>
   <script src="/static/js/websocket.js"></script>
   <script src="/static/js/area.js"></script>
