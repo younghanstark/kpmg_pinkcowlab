@@ -67,31 +67,3 @@ function CropImage() {
 
   img.src = canvas.toDataURL();
 }
-
-var setButton = document.getElementById("set-button");
-setButton.onclick = () => {
-  if (cropHeight == 0) {
-    alert("set the area");
-    return;
-  }
-  console.log("crop");
-  CropImage();
-  areaSet = true;
-};
-var clearButton = document.getElementById("clear-button");
-
-clearButton.onclick = function () {
-  if (streamingStatus) {
-    alert("can't clear while streaming, you should stop first");
-    return;
-  }
-  cropCtx.clearRect(0, 0, cropWidth, cropHeight);
-  ctx_area.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
-  cropHeight = 0;
-  cropWidth = 0;
-  recTLX = 0;
-  recTLY = 0;
-  recBRX = 0;
-  recBRY = 0;
-  areaSet = false;
-};
