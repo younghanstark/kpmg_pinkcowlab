@@ -94,6 +94,8 @@ console.log(startButton);
 
 let mask = "true";
 
+
+
 ws_client.on("src", (newS) => {
   //console.log(newS);
   // set the base64 string to the src tag of the image
@@ -112,13 +114,30 @@ ws_client.on("src", (newS) => {
 
       if (included(curx, cury, curw, curh)) {
         ctx_result.strokeRect(curx, cury, curw, curh);
+        var userName = document.getElementById("name").value;
+        mask = userName+",false";
+        ws_client.emit("result", mask);
       }
+      else{
+         console.log("clear");
+         ctx_result.clearRect(0, 0, width, height);
+         var userName = document.getElementById("name").value;
+         mask = userName+",true";
+         ws_client.emit("result", mask);
     }
-    mask = "false";
-    ws_client.emit("result", mask);
+    
   }
 
   ////console.log(newS)
+});
+
+
+ws_client.on("clear", (clear) => {
+  console.log("clear");
+  ctx_result.clearRect(0, 0, width, height);
+  var userName = document.getElementById("name").value;
+  mask = userName+",true";
+  ws_client.emit("result", mask);
 });
 
 function included(x, y, w, h) {
@@ -129,3 +148,4 @@ function included(x, y, w, h) {
   }
   return false;
 }
+

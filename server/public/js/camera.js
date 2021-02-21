@@ -70,35 +70,37 @@ var scanButton = document.getElementById("cam-scan");
 
 scanButton.onclick = () => {
   console.log("scan");
+  var userName = document.getElementById("name").value;
+  if (userName != "please enter name") {
+    tests = quickScan;
+    console.log(tests);
+    scanning = true;
 
-  tests = quickScan;
-  console.log(tests);
-  scanning = true;
+    var camera = {};
 
-  var camera = {};
-
-  if (devices) {
-    for (let deviceCount = 0, d = 0; d < deviceList.length; d++) {
-      if (deviceList[d].selected) {
-        for (let z = 0; z < devices.length; z++) {
-          if (devices[z].value === deviceList[d].value) {
-            camera.id = devices[z].value;
-            camera.label = devices[z].text;
-            console.log(camera.label + "[" + camera.id + "] selected");
-            break;
+    if (devices) {
+      for (let deviceCount = 0, d = 0; d < deviceList.length; d++) {
+        if (deviceList[d].selected) {
+          for (let z = 0; z < devices.length; z++) {
+            if (devices[z].value === deviceList[d].value) {
+              camera.id = devices[z].value;
+              camera.label = devices[z].text;
+              console.log(camera.label + "[" + camera.id + "] selected");
+              break;
+            }
           }
+          break;
         }
-        break;
       }
+      console.log(camera);
+      if (Object.keys(camera).length !== 0) {
+        gum(tests[r], camera);
+      }
+    } else {
+      selectedCamera[0] = { label: "Unknown" };
+      console.log("3");
+      gum(tests[r]);
     }
-    console.log(camera);
-    if (Object.keys(camera).length !== 0) {
-      gum(tests[r], camera);
-    }
-  } else {
-    selectedCamera[0] = { label: "Unknown" };
-    console.log("3");
-    gum(tests[r]);
   }
 
   gotoPhase2();
