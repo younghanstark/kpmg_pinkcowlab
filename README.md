@@ -35,14 +35,23 @@ Sub Mission 3: Reduction of socioeconomic cost related to pandemic situation
    cd server
    node server
    ```
-1. With your prefferd browser(We recommend Chrome), enter to http://localhost:3000
+1. With your prefferd browser(We recommend Chrome), enter http://localhost:3000
 1. Enjoy!
 
 ### How to Try in Our Server
 
-1. With your prefferd browser(We recommend Chrome), enter to https://mymagam.com
-1. Log in with your own ID
-1. Screenshots... need to be added
+1. With your prefferd browser(We recommend Chrome), enter https://mymagam.com
+   ![ex_screenshot](./img/step1.png)
+1. Enter the demo section of our homepage
+1. Allow 'mymagam.com' to use your camera
+1. Select camera to use for mask detection
+1. Enter your username to use in our service
+1. You will see the sight of the camera you choose
+1. You can drag and select the section in which you want mask detection by pressing the brush icon
+1. You can erase the selected detection area with the eraser icon
+1. You can name the selected detection area in the white naming section, and each area is classified with a color code
+1. If Magam starts detecting mask, you can check it in the buttons
+1. If Magam senses someone who is not properly wearing a mask in designated sections, it will give you a notification message.
 1. Enjoy!
 
 ## Our Technological Advantages
@@ -62,7 +71,7 @@ Sub Mission 3: Reduction of socioeconomic cost related to pandemic situation
 3. Spontaneity: Magam can be applied in real life as fast as you want - it can be applied right now.
 4. Safety: Magam reduces the danger of COVID-19 pandemic, and minimizes unnecessary face-to-face human contact in mask checking processes.
 
-## Post-Corona
+## Post-COVID
 
 1. Magam's feature recognizing algorithm can be applied to various fields such as:
 
