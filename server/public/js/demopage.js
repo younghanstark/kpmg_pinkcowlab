@@ -1,9 +1,9 @@
-var chkbtn_phase1 = document.getElementById("cam-scan");
-chkbtn_phase1.onclick = function() {
+function gotoPhase2() {
     var cameraselect = document.getElementById("devices");
     var cur_option = cameraselect.options.selectedIndex;
     var cur_value = cameraselect.options[cur_option].value;
     if (cur_value == "notselected") {
+        console.log("nownownownow");
         var div_alert = document.getElementById("select-alert");
         div_alert.style.display = "block";
         div_alert.classList.remove("shake");
