@@ -1,58 +1,125 @@
 <div id="phase0" style="display: block">
-  <h1 class="cover-heading"><strong>Demo</strong></h1>
+    <h1 class="cover-heading"><strong>Demo</strong></h1>
 </div>
 <div id="phase1" style="display: block">
-  <p>
-    The most important thing is that everyone knows the usefulness of our
-    service. Feel free to try our demo, think about the payment later.
-  </p>
-  <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
-  <p></p>
-  <select class="form-select" id="devices" name="Video devices" title="devices">
-    <option selected value="notselected">
-      Open to select available camera option.
-    </option>
-  </select>
-  <p></p>
-  <div id="select-alert-camera" style="display: none">Please select valid camera.</div>
-   <div id="select-alert-name" style="display: none">Please Enter Name.</div>
-  <p></p>
-  <h3 class="cover-heading"><strong>Enter Username</strong></h3>
-  <form><input
-      type="text"
-      id="name"
-      name="name"
-      value="please enter name"
-      required
-      minlength="4"
-      size="50"
-      onfocus = "this.value = ''"
-    />
-    <button
-      id="cam-scan"
-      type="button"
-      class="btn btn-default btn-circle btn-xl btn-foo"
-    >
-      <i class="bi bi-check2"></i>
-    </button></form>
-    
-  
+    <p>
+        The most important thing is that everyone knows the usefulness of our
+        service. Feel free to try our demo, think about the payment later.
+    </p>
+    <h3 class="cover-heading"><strong>Select Camera to Use</strong></h3>
+    <p></p>
+    <select class="form-select" id="devices" name="Video devices" title="devices">
+        <option selected value="notselected">
+            Open to select available camera option.
+        </option>
+    </select>
+    <p></p>
+    <div id="select-alert-camera" style="display: none">Please select valid camera.</div>
+    <div id="select-alert-name" style="display: none">Please Enter Name.</div>
+    <p></p>
+    <h3 class="cover-heading"><strong>Enter Username</strong></h3>
+    <p></p>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="name" name="name" value="please enter name" required minlength="4" size="50"
+            onfocus="this.value = ''" />
+    </div>
+    <p></p>
+    <button id="cam-scan" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+        <i class="bi bi-check2"></i>
+    </button>
 
-  <p></p>
+    <p></p>
 
-  <p></p>
+    <p></p>
 </div>
+<video id="vid" hidden></video>
 <div id="phase2" style="display: none">
 
+    <h3 class="cover-heading" style="display: block">
+        <strong>Config Detection Domains</strong>
+    </h3>
+    <p>Draw the areas by dragging the mouse.</p>
+    <p></p>
+    <div id="div-canvas-ph2" class="position-relative" style="display: block">
+        <canvas id="area-canvas1" style="display: block; z-index: 0;"
+            class="position-absolute top-50 start-50 translate-middle"></canvas>
+        <canvas id="area-canvas2" style="display: block; z-index: 0;"
+            class="position-absolute top-50 start-50 translate-middle"></canvas>
+        <canvas id="area-canvas3" style="display: block; z-index: 0;"
+            class="position-absolute top-50 start-50 translate-middle"></canvas>
+        <canvas id="ph2-canvas" style="display: block; z-index: 10;"
+            class="position-absolute top-50 start-50 translate-middle"></canvas>
+    </div>
+    <p></p>
+    <div class="row align-items-center" id="dom-box1">
+        <div class="col">
+            <input class="form-control" value="box1">
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-brush"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-eraser"></i>
+            </button>
+        </div>
+        <div class="col">
+            <i class="bi bi-square-fill clsq" style="color: red"></i>
+        </div>
+    </div>
+    <div class="row align-items-center" id="dom-box2">
+        <div class="col">
+            <input class="form-control" value="box2">
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-brush"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-eraser"></i>
+            </button>
+        </div>
+        <div class="col">
+            <i class="bi bi-square-fill clsq" style="color: green"></i>
+        </div>
+    </div>
+    <div class="row align-items-center" id="dom-box3">
+        <div class="col">
+            <input class="form-control" value="box3">
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-brush"></i>
+            </button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+                <i class="bi bi-eraser"></i>
+            </button>
+        </div>
+        <div class="col">
+            <i class="bi bi-square-fill clsq" style="color: blue"></i>
+        </div>
+    </div>
+    <p></p>
+    <button id="gotoPhase3" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
+        <i class="bi bi-check2"></i>
+    </button>
+</div>
+<div id="phase3" style="display: none">
     <h3 class="cover-heading" style="display: block">
         <strong>Selected Camera's Sight</strong>
     </h3>
     <p></p>
-    <video id="vid" hidden></video>
     <div id="div-canvas" class="position-relative" style="display: block">
-        <canvas id="area-canvas" style="display: block; z-index: 100"
+        <canvas id="dom-draw" style="z-index:10" class="position-absolute top-50 start-50 translate-middle"></canvas>
+        <canvas id="area-canvas" style="display: block;"
             class="position-absolute top-50 start-50 translate-middle"></canvas>
-        <canvas id="result-canvas" style="display: block; z-index: 20"
+        <canvas id="result-canvas" style="display: block; z-index:20;"
             class="position-absolute top-50 start-50 translate-middle"></canvas>
         <canvas id="canvas" style="display: block" class="position-absolute top-50 start-50 translate-middle"></canvas>
     </div>
@@ -66,12 +133,6 @@
     </div>
     <p></p>
     <p>
-        <button id="set-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-check2"></i>
-        </button>
-        <button id="clear-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
-            <i class="bi bi-eraser"></i>
-        </button>
         <button id="start-button" type="button" class="btn btn-default btn-circle btn-xl btn-foo">
             <i class="bi bi-caret-right-fill"></i>
         </button>
@@ -79,6 +140,19 @@
             <i class="bi bi-square-fill"></i>
         </button>
     </p>
+
+    <div class="row align-items-center" id="res-box1">
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+    <div class="row align-items-center" id="res-box2">
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+    <div class="row align-items-center" id="res-box3">
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
 
 </div>
 <script src="/static/js/demopage.js"></script>

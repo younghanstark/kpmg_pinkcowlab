@@ -173,10 +173,25 @@ function gum(candidate, device) {
     mainCanvas.width = width;
     resultCanvas.width = width;
     resultCanvas.height = height;
+    canvas_ph2.width = width;
+    canvas_ph2.height = height;
+    box1canvas.width=width;
+    box1canvas.height=height;
+    box2canvas.width=width;
+    box2canvas.height=height;
+    box3canvas.width=width;
+    box3canvas.height=height;
+    var domdraw = document.getElementById("dom-draw");
+    domdraw.width = width;
+    domdraw.height = height;
 
     var divCanvas = document.getElementById("div-canvas");
     divCanvas.style.width = String(width);
     divCanvas.style.height = String(height) + "px";
+
+    var divCanvas2 = document.getElementById("div-canvas-ph2");
+    divCanvas2.style.width = String(width) + "px";
+    divCanvas2.style.height = String(height) + "px";
 
     scanning = false;
 

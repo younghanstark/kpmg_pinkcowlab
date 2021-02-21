@@ -1,7 +1,9 @@
 const { PythonShell } = require("python-shell");
 
 let options = {
-  pythonPath: "/usr/bin/python3",
+
+  pythonPath: "C:\\Users\\dudgk\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe",
+
   scriptPath: "../core",
 };
 

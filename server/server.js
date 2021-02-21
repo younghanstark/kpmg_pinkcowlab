@@ -7,16 +7,16 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
+
 let mask_api = {};
+
 
 var template = require("./public/js/template");
 var fs = require("fs");
 var url = require("url");
 
-https: app.get("/", function (request, response) {
-  // const ip =
-  //   request.headers["x-forwarded-for"] || request.connection.remoteAddress;
-  // console.log(ip);
+
+app.get("/", function (request, response) {
 
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
@@ -36,6 +36,7 @@ https: app.get("/", function (request, response) {
   });
 });
 
+
 app.get(`/api/:userName`, (req, res) => {
   var userName = req.params.userName;
 
@@ -46,6 +47,7 @@ app.get(`/api/:userName`, (req, res) => {
   } else {
     return res.writeHead(404);
   }
+
 });
 
 const server = http.createServer(app);
