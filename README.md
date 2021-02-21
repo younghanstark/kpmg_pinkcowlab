@@ -43,15 +43,25 @@ Sub Mission 3: Reduction of socioeconomic cost related to pandemic situation
 1. With your prefferd browser(We recommend Chrome), enter https://mymagam.com
    ![ex_screenshot](./img/step1.png)
 1. Enter the demo section of our homepage
+   ![ex_screenshot](./img/step2.png)
 1. Allow 'mymagam.com' to use your camera
+   ![ex_screenshot](./img/step3.png)
 1. Select camera to use for mask detection
+   ![ex_screenshot](./img/step4.png)
 1. Enter your username to use in our service
+   ![ex_screenshot](./img/step5.png)
 1. You will see the sight of the camera you choose
+   ![ex_screenshot](./img/step6.png)
 1. You can drag and select the section in which you want mask detection by pressing the brush icon
+   ![ex_screenshot](./img/step7.png)
 1. You can erase the selected detection area with the eraser icon
+
 1. You can name the selected detection area in the white naming section, and each area is classified with a color code
+
 1. If Magam starts detecting mask, you can check it in the buttons
+   ![ex_screenshot](./img/step8.png)
 1. If Magam senses someone who is not properly wearing a mask in designated sections, it will give you a notification message.
+   ![ex_screenshot](./img/step9.png)
 1. Enjoy!
 
 ## Our Technological Advantages
