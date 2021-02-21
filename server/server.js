@@ -42,7 +42,12 @@ app.get("/api", (req, res) => {
 
 const server = http.createServer(app);
 
-const io = socketio(server);
+const io = socketio(server, {
+  allowRequest: (req) => {
+    console.log("req");
+    console.log(req);
+  },
+});
 
 io.on("connection", (socket) => {
   const { url } = socket.request;
