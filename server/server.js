@@ -43,8 +43,10 @@ app.get("/api", (req, res) => {
 const server = http.createServer(app);
 
 const io = socketio(server, {
-  allowRequest: (req, next) => {
-    console.log("next : ", next)
+  allowRequest: (req, next = (err, success) => {
+    console.log(success);
+  }) => {
+    console.log("next : ", next = )
     console.log("req");
     console.log(req.rawHeaders[1]);
   },
