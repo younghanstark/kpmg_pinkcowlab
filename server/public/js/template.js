@@ -1,6 +1,6 @@
 module.exports = {
-    HTML: function (content) {
-        return `
+  HTML: function (content) {
+    return `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,8 +28,9 @@ module.exports = {
     ></script>
   </head>
   <body class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
+  <div class="flex-column" style="width: 100%;">
+   <div class="cover-container d-flex p-3 mx-auto flex-column " style="width: 100%;>
+    <header class="masthead mb-auto">
         <div class="inner">
           <h3 class="masthead-brand">
             <a
@@ -38,6 +39,11 @@ module.exports = {
               >MaGam</a>
           </h3>
           <nav id="main-nav" class="nav nav-masthead justify-content-center">
+            <a
+              class="nav-link"
+              href="./?content=home"
+              >Home</a
+            >
             <a
               class="nav-link"
               href="./?content=features"
@@ -55,7 +61,9 @@ module.exports = {
             >
           </nav>
         </div>
-      </header>
+      </header></div>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+     
 
       <main role="main" class="inner cover">
       ${content}
@@ -69,6 +77,7 @@ module.exports = {
           </p>
         </div>
       </footer>
+    </div>
     </div>
   </body>
   <script src="/static/js/basic.js"></script>
@@ -88,6 +97,6 @@ module.exports = {
     crossorigin="anonymous"
   ></script>
 </html>
-        `
-    }
-}
+        `;
+  },
+};

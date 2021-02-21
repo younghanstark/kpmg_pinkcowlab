@@ -13,7 +13,11 @@ var template = require("./public/js/template");
 var fs = require("fs");
 var url = require("url");
 
-app.get("/", function (request, response) {
+https: app.get("/", function (request, response) {
+  const ip =
+    request.headers["x-forwarded-for"] || request.connection.remoteAddress;
+  console.log(ip);
+
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
   var title = queryData.content;
