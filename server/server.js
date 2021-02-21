@@ -7,13 +7,17 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
-let mask = "true";
+
+let mask_api = {};
+
 
 var template = require("./public/js/template");
 var fs = require("fs");
 var url = require("url");
 
+
 app.get("/", function (request, response) {
+
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
   var title = queryData.content;
@@ -32,8 +36,18 @@ app.get("/", function (request, response) {
   });
 });
 
-app.get("/api", (req, res) => {
-  return res.send(mask);
+
+app.get(`/api/:userName`, (req, res) => {
+  var userName = req.params.userName;
+
+  if (userName in mask_api) {
+    let result_object = {};
+    result_object[userName] = mask_api[userName];
+    return res.send(mask_api[userName]);
+  } else {
+    return res.writeHead(404);
+  }
+
 });
 
 const server = http.createServer(app);
@@ -49,7 +63,10 @@ io.on("connection", (socket) => {
     launchPyshell(data, socket);
   });
   socket.on("result", (data, self) => {
-    mask = data;
+    let maskStatus = data.split(",");
+    console.log(mask_api);
+
+    mask_api[maskStatus[0]] = maskStatus[1];
   });
 });
 

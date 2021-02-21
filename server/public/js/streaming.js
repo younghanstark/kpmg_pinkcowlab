@@ -40,6 +40,7 @@ function draw(video, ctx, width, height) {
 console.log("checked");
 
 stopButton.onclick = () => {
+  startButton.className = "btn btn-default btn-circle btn-xl btn-foo";
   stop();
 };
 
@@ -62,6 +63,11 @@ console.log(stopButton);
 console.log("checked");
 
 startButton.onclick = () => {
+
+  startButton.className = "btn btn-default btn-circle btn-xl btn-selected";
+
+  
+
   streamingStatus = true;
   console.log("start");
   draw(video, ctx, canvas.width, canvas.height);
@@ -115,6 +121,14 @@ ws_client.on("src", (newS) => {
     resbox2[1].innerText = "true";
     resbox3[1].innerText = "true";
 
+
+    
+    var userName = document.getElementById("name").value;
+    
+    var mask = userName;
+    var box1on = "true";
+    var box2on = "true";
+    var box3on = "true";
     for (var i = 0; i < coord.length / 5; i++) {
       var x = parseInt(coord[1 + i * 5 + 1]);
       var y = parseInt(coord[1 + i * 5 + 2]);
@@ -124,20 +138,33 @@ ws_client.on("src", (newS) => {
       if (box1cur && included(recTLX1, recTLY1, cropWidth1, cropHeight1, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
         resbox1[1].innerText = "false";
+        box1on = "false";
         console.log("aaaaa");
       }
       if (box2cur && included(recTLX2, recTLY2, cropWidth2, cropHeight2, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
         resbox2[1].innerText = "false";
+        box2on = "false";
       }
       if (box3cur && included(recTLX3, recTLY3, cropWidth3, cropHeight3, x, y, w, h)) {
         ctx_result.strokeRect(x, y, w, h);
         resbox3[1].innerText = "false";
+        box3on = "false";
       }
     }
-    mask = "false";
+    
+    mask += ",1," + box1on + ",2," + box2on + ",3," + box3on;
     ws_client.emit("result", mask);
+    
   }
+});
+
+ws_client.on("clear", (clear) => {
+  console.log("clear");
+  ctx_result.clearRect(0, 0, width, height);
+  var userName = document.getElementById("name").value;
+  mask = userName + ",true";
+  ws_client.emit("result", mask);
 });
 
 function included(x, y, w, h) {

@@ -1,22 +1,34 @@
 function gotoPhase2() {
+
     var cameraselect = document.getElementById("devices");
     var cur_option = cameraselect.options.selectedIndex;
     var cur_value = cameraselect.options[cur_option].value;
-    if (cur_value == "notselected") {
-        console.log("nownownownow");
-        var div_alert = document.getElementById("select-alert");
-        div_alert.style.display = "block";
-        div_alert.classList.remove("shake");
-        div_alert.offsetWidth = div_alert.offsetWidth;
-        div_alert.classList.add("shake");
-    }
-    else {
-        var div_phase1 = document.getElementById("phase1");
-        div_phase1.style.display = "none";
-        var div_phase2 = document.getElementById("phase2");
-        div_phase2.style.display = "block";
-    }
+    var name_value = document.getElementById("name").value;
+  
+     if (cur_value == "notselected" ) {
+    console.log("nownownownow");
+    var div_alert = document.getElementById("select-alert-camera");
+    div_alert.style.display = "block";
+    div_alert.classList.remove("shake");
+    div_alert.offsetWidth = div_alert.offsetWidth;
+    div_alert.classList.add("shake");
+  } else if (name_value == "please enter name" || name_value == '') {
+      var div_alert = document.getElementById("select-alert-name");
+    div_alert.style.display = "block";
+    div_alert.classList.remove("shake");
+    div_alert.offsetWidth = div_alert.offsetWidth;
+    div_alert.classList.add("shake");
+  } else {
+    var div_phase1 = document.getElementById("phase1");
+    div_phase1.style.display = "none";
+    var div_phase2 = document.getElementById("phase2");
+    div_phase2.style.display = "block";
+  }
 }
+
+
+
+
 
 var box1canvas = document.getElementById("area-canvas1");
 var box1ctx = box1canvas.getContext("2d");
@@ -209,4 +221,5 @@ phase3Btn.onclick = function () {
     resbox1[0].innerText = box1name;
     resbox2[0].innerText = box2name;
     resbox3[0].innerText = box3name;
+
 }

@@ -40,6 +40,9 @@ mainCanvas.onmousedown = function (event) {
   mainCanvas.onmouseup = function (event) {
     mainCanvas.removeEventListener("mousemove", updateRec);
   };
+  mainCanvas.onmouseleave = function (event) {
+    mainCanvas.removeEventListener("mousemove", updateRec);
+  };
 };
 
 function CropImage() {
