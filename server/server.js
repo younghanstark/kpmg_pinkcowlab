@@ -7,6 +7,7 @@ const { launchPyshell } = require("./python-node");
 
 const app = express();
 
+
 var template = require('./public/js/template');
 var fs = require('fs');
 var url = require('url');
@@ -28,6 +29,13 @@ app.get("/", function(request, response) {
     var html = template.HTML(description);
     response.end(html);
   });
+
+let mask = "true";
+
+
+app.get("/api", (req, res) => {
+  return res.send(mask);
+
 });
 
 const server = http.createServer(app);
@@ -41,6 +49,9 @@ io.on("connection", (socket) => {
   socket.on("data", (data, self) => {
     ////console.log(data)
     launchPyshell(data, socket);
+  });
+  socket.on("result", (data, self) => {
+    mask = data;
   });
 });
 

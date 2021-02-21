@@ -9,6 +9,7 @@ var startButton = document.getElementById("start-button");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var body = document.body;
+var mask_recognition = "true";
 
 video.addEventListener(
   "play",
@@ -68,6 +69,7 @@ startButton.onclick = () => {
   streamingId = setInterval(() => {
     ////console.log(sendString);
     //console.log(sendString);
+    mask_recognition = "true";
     ws_client.emit("data", sendString);
     ////console.log(sendString);
   }, 500);
@@ -83,6 +85,8 @@ console.log(startButton);
 
 //client
 
+let mask = "true";
+
 ws_client.on("src", (newS) => {
   //console.log(newS);
   // set the base64 string to the src tag of the image
@@ -92,16 +96,25 @@ ws_client.on("src", (newS) => {
     console.log(newS);
     var coord = newS.split(",");
     ctx_result.strokeStyle = "#ff0000";
-    
+
     for (var i = 0; i < coord.length / 5; i++) {
       ctx_result.strokeRect(
-        parseInt(coord[1+i*5+1]),
-        parseInt(coord[1+i*5+2]),
-        parseInt(coord[1+i*5+3]),
-        parseInt(coord[1+i*5+4])
-      )
+        parseInt(coord[1 + i * 5 + 1]),
+        parseInt(coord[1 + i * 5 + 2]),
+        parseInt(coord[1 + i * 5 + 3]),
+        parseInt(coord[1 + i * 5 + 4])
+      );
     }
+    mask = "false";
+    ws_client.emit("result", mask);
   }
 
   ////console.log(newS)
+});
+
+ws_client.on("clear", (clear) => {
+  console.log("clear");
+  ctx_result.clearRect(0, 0, width, height);
+  mask = "true";
+  ws_client.emit("result", mask);
 });
