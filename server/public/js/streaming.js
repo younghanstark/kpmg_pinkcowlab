@@ -17,10 +17,10 @@ var mask_recognition = "true";
 video.addEventListener(
   "play",
   function () {
-    console.log("draw");
+    //console.log("draw");
     draw(video, ctx_ph2, canvas.width, canvas.height);
     draw(video, ctx_ph3, canvas.width, canvas.height);
-    console.log(height, width);
+    //console.log(height, width);
   },
   false
 );
@@ -34,10 +34,10 @@ function draw(video, ctx, width, height) {
 
   sendString = canvas.toDataURL();
   setTimeout(draw, 10, video, ctx, width, height);
-  //console.log(streamingId);
+  ////console.log(streamingId);
 }
 
-console.log("checked");
+//console.log("checked");
 
 stopButton.onclick = () => {
   startButton.className = "btn btn-default btn-circle btn-xl btn-foo";
@@ -51,32 +51,32 @@ function stop() {
   resbox1[1].innerText = "";
   resbox2[1].innerText = "";
   resbox3[1].innerText = "";
-  console.log("stop");
+  //console.log("stop");
   streamingStatus = false;
   ctx.drawImage(video, 0, 0, width, height);
 
-  console.log(streamingId);
+  //console.log(streamingId);
   if (streamingId != null) {
     clearTimeout(streamingId);
     streamingId = null;
   }
-  console.log(streamingId);
+  //console.log(streamingId);
   body.style.setProperty("--background-color", "green");
 }
 
-console.log(stopButton);
+//console.log(stopButton);
 
-console.log("checked");
+//console.log("checked");
 
 startButton.onclick = () => {
   startButton.className = "btn btn-default btn-circle btn-xl btn-selected";
 
   streamingStatus = true;
-  console.log("start");
+  //console.log("start");
   draw(video, ctx, canvas.width, canvas.height);
 
   streamingId = setInterval(() => {
-    ////console.log(sendString);
+    //////console.log(sendString);
     //console.log(sendString);
     mask_recognition = "true";
     ws_client.emit("data", sendString);
@@ -84,7 +84,7 @@ startButton.onclick = () => {
   }, 500);
 };
 
-console.log(startButton);
+//console.log(startButton);
 
 // function stop(ctx, width, height) {
 //   ctx.clearRect(0, 0, width, height);
@@ -141,7 +141,7 @@ ws_client.on("src", (newS) => {
         ctx_result.strokeRect(x, y, w, h);
         resbox1[1].innerText = "No Mask";
         box1on = "false";
-        console.log("aaaaa");
+        //console.log("aaaaa");
       }
       if (
         box2cur &&
@@ -183,7 +183,7 @@ ws_client.on("src", (newS) => {
 });
 
 ws_client.on("clear", (clear) => {
-  console.log("clear");
+  //console.log("clear");
   var resbox1 = document.getElementById("res-box1").children;
   var resbox2 = document.getElementById("res-box2").children;
   var resbox3 = document.getElementById("res-box3").children;
@@ -211,6 +211,6 @@ ws_client.on("clear", (clear) => {
     box3name +
     ":" +
     "true";
-  console.log(mask);
+  //console.log(mask);
   ws_client.emit("result", mask);
 });

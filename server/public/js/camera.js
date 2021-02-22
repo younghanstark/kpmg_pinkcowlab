@@ -19,7 +19,7 @@ var ctx_result = resultCanvas.getContext("2d");
 
 const agt = navigator.userAgent.toLowerCase();
 
-console.log(agt);
+//console.log(agt);
 
 function gotDevices(deviceInfos) {
   let camcount = 1;
@@ -35,7 +35,7 @@ function gotDevices(deviceInfos) {
       camcount++;
     }
   }
-  console.log(deviceList);
+  //console.log(deviceList);
 }
 
 function errorCallback(error) {
@@ -46,7 +46,7 @@ navigator.mediaDevices
   .getUserMedia({ audio: false, video: true })
   .then((mediaStream) => {
     video.srcObject = mediaStream;
-    console.log("in");
+    //conlol("in");
     navigator.mediaDevices
       .enumerateDevices()
       .then(gotDevices)
@@ -56,15 +56,15 @@ navigator.mediaDevices
     console.error("getUserMedia error!", error);
   });
 
-if (document.location.hostname !== "localhost") {
-  if (document.location.protocol !== "https:") {
-    $(document).html("This doesn't work well on http. Redirecting to https");
-    console.log("redirecting to https");
-    document.location.href =
-      "https:" +
-      document.location.href.substring(document.location.protocol.length);
-  }
-}
+// if (document.location.hostname !== "localhost") {
+//   if (document.location.protocol !== "https:") {
+//     $(document).html("This doesn't work well on http. Redirecting to https");
+//     console.log("redirecting to https");
+//     document.location.href =
+//       "https:" +
+//       document.location.href.substring(document.location.protocol.length);
+//   }
+// }
 
 var scanButton = document.getElementById("cam-scan");
 
@@ -79,15 +79,15 @@ document.addEventListener(
 );
 
 scanButton.onclick = () => {
-  console.log("scan");
+  //console.log("scan");
   var userName = document.getElementById("name").value;
-  console.log("," + userName + ",");
+  //console.log("," + userName + ",");
   if (userName != "please enter name" || userName !== "") {
     if (userName == "") {
-      console.log(typeof userName);
+      //console.log(typeof userName);
     }
     tests = quickScan;
-    console.log(tests);
+    //console.log(tests);
     scanning = true;
 
     var camera = {};
@@ -106,13 +106,13 @@ scanButton.onclick = () => {
           break;
         }
       }
-      console.log(camera);
+      //console.log(camera);
       if (Object.keys(camera).length !== 0) {
         gum(tests[r], camera);
       }
     } else {
-      selectedCamera[0] = { label: "Unknown" };
-      console.log("3");
+      camera = { label: "Unknown" };
+      //console.log("3");
       gum(tests[r]);
     }
   }
@@ -175,12 +175,12 @@ function gum(candidate, device) {
     resultCanvas.height = height;
     canvas_ph2.width = width;
     canvas_ph2.height = height;
-    box1canvas.width=width;
-    box1canvas.height=height;
-    box2canvas.width=width;
-    box2canvas.height=height;
-    box3canvas.width=width;
-    box3canvas.height=height;
+    box1canvas.width = width;
+    box1canvas.height = height;
+    box2canvas.width = width;
+    box2canvas.height = height;
+    box3canvas.width = width;
+    box3canvas.height = height;
     var domdraw = document.getElementById("dom-draw");
     domdraw.width = width;
     domdraw.height = height;
@@ -200,7 +200,7 @@ function gum(candidate, device) {
       video.play();
     };
 
-    console.log("draw");
+    //console.log("draw");
   }
 }
 

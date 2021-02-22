@@ -5,7 +5,7 @@ function gotoPhase2() {
   var name_value = document.getElementById("name").value;
 
   if (cur_value == "notselected") {
-    console.log("nownownownow");
+    //console.log("nownownownow");
     var div_alert = document.getElementById("select-alert-camera");
     div_alert.style.display = "block";
     div_alert.classList.remove("shake");
