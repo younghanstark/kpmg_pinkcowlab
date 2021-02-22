@@ -169,9 +169,11 @@ ws_client.on("src", (newS) => {
       box1name +
       ":" +
       box1on +
+      ":" +
       box2name +
       ":" +
       box2on +
+      ":" +
       box3name +
       ":" +
       box3on;
@@ -194,9 +196,11 @@ ws_client.on("clear", (clear) => {
     box1name +
     ":" +
     "true" +
+    ":" +
     box2name +
     ":" +
     "true" +
+    ":" +
     box3name +
     ":" +
     "true";
