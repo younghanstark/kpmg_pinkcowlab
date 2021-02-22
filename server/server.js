@@ -39,7 +39,7 @@ app.get(`/api/:userName`, (req, res) => {
     let result_object = {};
     let dataResult = mask_api[userName].split(":");
 
-    for (var i = 0; i < dataResult.length() / 2; i++) {
+    for (var i = 0; i < dataResult.length / 2; i++) {
       result_object[dataResult[2 * i]] = dataResult[2 * i + 1];
     }
 
