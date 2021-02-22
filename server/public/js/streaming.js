@@ -160,8 +160,21 @@ ws_client.on("src", (newS) => {
         box3on = "false";
       }
     }
+    var box1name = dom1[0].children[0].value;
+    var box2name = dom2[0].children[0].value;
+    var box3name = dom3[0].children[0].value;
 
-    mask += ",1:" + box1on + ":2:" + box2on + ":3:" + box3on;
+    mask +=
+      "," +
+      box1name +
+      ":" +
+      box1on +
+      box2name +
+      ":" +
+      box2on +
+      box3name +
+      ":" +
+      box3on;
     ws_client.emit("result", mask);
   }
 });
@@ -176,6 +189,16 @@ ws_client.on("clear", (clear) => {
   resbox3[1].innerText = "Mask";
   ctx_result.clearRect(0, 0, width, height);
   var userName = document.getElementById("name").value;
-  mask = userName + ",1:true:2:true:3:true";
+  mask +=
+    "," +
+    box1name +
+    ":" +
+    "true" +
+    box2name +
+    ":" +
+    "true" +
+    box3name +
+    ":" +
+    "true";
   ws_client.emit("result", mask);
 });
