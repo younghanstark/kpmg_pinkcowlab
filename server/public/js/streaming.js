@@ -61,7 +61,29 @@ function stop() {
     streamingId = null;
   }
   //console.log(streamingId);
-  body.style.setProperty("--background-color", "green");
+  //body.style.setProperty("--background-color", "green");
+
+  var userName = document.getElementById("name").value;
+  var box1name = dom1[0].children[0].value;
+  var box2name = dom2[0].children[0].value;
+  var box3name = dom3[0].children[0].value;
+
+  var mask = userName;
+  mask +=
+    "," +
+    box1name +
+    ":" +
+    "off" +
+    ":" +
+    box2name +
+    ":" +
+    "off" +
+    ":" +
+    box3name +
+    ":" +
+    "off";
+  //console.log(mask);
+  ws_client.emit("result", mask);
 }
 
 //console.log(stopButton);
@@ -184,6 +206,7 @@ ws_client.on("src", (newS) => {
 
 ws_client.on("clear", (clear) => {
   //console.log("clear");
+
   var resbox1 = document.getElementById("res-box1").children;
   var resbox2 = document.getElementById("res-box2").children;
   var resbox3 = document.getElementById("res-box3").children;
@@ -191,8 +214,8 @@ ws_client.on("clear", (clear) => {
   resbox2[1].innerText = "Mask";
   resbox3[1].innerText = "Mask";
   ctx_result.clearRect(0, 0, width, height);
-  var userName = document.getElementById("name").value;
 
+  var userName = document.getElementById("name").value;
   var box1name = dom1[0].children[0].value;
   var box2name = dom2[0].children[0].value;
   var box3name = dom3[0].children[0].value;

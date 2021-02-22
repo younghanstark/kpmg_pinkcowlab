@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
   });
   socket.on("result", (data, self) => {
     let maskStatus = data.split(",");
-    console.log(mask_api);
+    //console.log(mask_api);
 
     mask_api[maskStatus[0]] = maskStatus[1];
   });
