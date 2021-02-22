@@ -177,6 +177,7 @@ ws_client.on("src", (newS) => {
       box3name +
       ":" +
       box3on;
+
     ws_client.emit("result", mask);
   }
 });
@@ -191,6 +192,12 @@ ws_client.on("clear", (clear) => {
   resbox3[1].innerText = "Mask";
   ctx_result.clearRect(0, 0, width, height);
   var userName = document.getElementById("name").value;
+
+  var box1name = dom1[0].children[0].value;
+  var box2name = dom2[0].children[0].value;
+  var box3name = dom3[0].children[0].value;
+
+  var mask = userName;
   mask +=
     "," +
     box1name +
@@ -204,5 +211,6 @@ ws_client.on("clear", (clear) => {
     box3name +
     ":" +
     "true";
+  console.log(mask);
   ws_client.emit("result", mask);
 });
