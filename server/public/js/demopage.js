@@ -38,6 +38,8 @@ var recTLX1,
   recBRY1,
   cropWidth1 = 0,
   cropHeight1 = 0;
+
+//drag
 box1canvas.onmousedown = function (event) {
   box1ctx.strokeStyle = "red";
 
@@ -229,6 +231,125 @@ box3clear.onclick = function () {
     recBRY3 = 0;
   }
 };
+///////////////
+
+//touch
+box1canvas.ontouchstart = function (event) {
+  box1ctx.strokeStyle = "red";
+
+  var topLeftX1 = event.offsetX;
+  var topLeftY1 = event.offsetY;
+
+  function updateRec(event) {
+    box1ctx.clearRect(0, 0, box1canvas.width, box1canvas.height);
+    var bottomRightX1 = event.offsetX;
+    var bottomRightY1 = event.offsetY;
+    recTLX1 = Math.min(topLeftX1, bottomRightX1);
+    recTLY1 = Math.min(topLeftY1, bottomRightY1);
+    recBRX1 = Math.max(topLeftX1, bottomRightX1);
+    recBRY1 = Math.max(topLeftY1, bottomRightY1);
+
+    cropWidth1 = recBRX1 - recTLX1;
+    cropHeight1 = recBRY1 - recTLY1;
+
+    box1ctx.strokeRect(recTLX1, recTLY1, cropWidth1, cropHeight1);
+  }
+
+  box1canvas.addEventListener("touchmove", updateRec);
+
+  box1canvas.ontouchend = function (event) {
+    box1canvas.removeEventListener("touchmove", updateRec);
+  };
+};
+
+var dom1 = document.getElementById("dom-box1").children;
+var box1name = dom1[0].children[0].value;
+var box1draw = dom1[1].children[0];
+var box1clear = dom1[2].children[0];
+var box1cur = false;
+
+var dom2 = document.getElementById("dom-box2").children;
+var box2name = dom2[0].children[0].value;
+var box2draw = dom2[1].children[0];
+var box2clear = dom2[2].children[0];
+var box2cur = false;
+
+var dom3 = document.getElementById("dom-box3").children;
+var box3draw = dom3[1].children[0];
+var box3clear = dom3[2].children[0];
+var box3cur = false;
+
+var recTLX2,
+  recTLY2,
+  recBRX2,
+  recBRY2,
+  cropWidth2 = 0,
+  cropHeight2 = 0;
+
+box2canvas.ontouchstart = function (event) {
+  box2ctx.strokeStyle = "green";
+
+  var topLeftX2 = event.offsetX;
+  var topLeftY2 = event.offsetY;
+
+  function updateRec(event) {
+    box2ctx.clearRect(0, 0, box2canvas.width, box2canvas.height);
+    var bottomRightX2 = event.offsetX;
+    var bottomRightY2 = event.offsetY;
+    recTLX2 = Math.min(topLeftX2, bottomRightX2);
+    recTLY2 = Math.min(topLeftY2, bottomRightY2);
+    recBRX2 = Math.max(topLeftX2, bottomRightX2);
+    recBRY2 = Math.max(topLeftY2, bottomRightY2);
+
+    cropWidth2 = recBRX2 - recTLX2;
+    cropHeight2 = recBRY2 - recTLY2;
+
+    box2ctx.strokeRect(recTLX2, recTLY2, cropWidth2, cropHeight2);
+  }
+
+  box2canvas.addEventListener("touchmove", updateRec);
+
+  box2canvas.ontouchend = function (event) {
+    box2canvas.removeEventListener("touchmove", updateRec);
+  };
+};
+
+var recTLX3,
+  recTLY3,
+  recBRX3,
+  recBRY3,
+  cropWidth3 = 0,
+  cropHeight3 = 0;
+box3canvas.ontouchstart = function (event) {
+  box3ctx.strokeStyle = "blue";
+
+  var topLeftX3 = event.offsetX;
+  var topLeftY3 = event.offsetY;
+
+  function updateRec(event) {
+    box3ctx.clearRect(0, 0, box3canvas.width, box3canvas.height);
+    //ctx_area.drawImage(video, 0, 0, mainCanvas.width, mainCanvas.height);
+    var bottomRightX3 = event.offsetX;
+    var bottomRightY3 = event.offsetY;
+    recTLX3 = Math.min(topLeftX3, bottomRightX3);
+    recTLY3 = Math.min(topLeftY3, bottomRightY3);
+    recBRX3 = Math.max(topLeftX3, bottomRightX3);
+    recBRY3 = Math.max(topLeftY3, bottomRightY3);
+
+    cropWidth3 = recBRX3 - recTLX3;
+    cropHeight3 = recBRY3 - recTLY3;
+
+    box3ctx.strokeRect(recTLX3, recTLY3, cropWidth3, cropHeight3);
+  }
+
+  box3canvas.addEventListener("touchmove", updateRec);
+
+  box3canvas.ontouchend = function (event) {
+    box3canvas.removeEventListener("touchmove", updateRec);
+  };
+};
+
+/////////
 
 var phase3Btn = document.getElementById("gotoPhase3");
 phase3Btn.onclick = function () {
