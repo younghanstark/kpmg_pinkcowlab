@@ -168,6 +168,12 @@ ws_client.on("src", (newS) => {
 
 ws_client.on("clear", (clear) => {
   console.log("clear");
+  var resbox1 = document.getElementById("res-box1").children;
+  var resbox2 = document.getElementById("res-box2").children;
+  var resbox3 = document.getElementById("res-box3").children;
+  resbox1[1].innerText = "Mask";
+  resbox2[1].innerText = "Mask";
+  resbox3[1].innerText = "Mask";
   ctx_result.clearRect(0, 0, width, height);
   var userName = document.getElementById("name").value;
   mask = userName + ",1:true:2:true:3:true";
