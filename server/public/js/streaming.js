@@ -45,6 +45,12 @@ stopButton.onclick = () => {
 };
 
 function stop() {
+  var resbox1 = document.getElementById("res-box1").children;
+  var resbox2 = document.getElementById("res-box2").children;
+  var resbox3 = document.getElementById("res-box3").children;
+  resbox1[1].innerText = "";
+  resbox2[1].innerText = "";
+  resbox3[1].innerText = "";
   console.log("stop");
   streamingStatus = false;
   ctx.drawImage(video, 0, 0, width, height);
@@ -105,7 +111,7 @@ ws_client.on("src", (newS) => {
   ctx_result.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
   if (streamingStatus) {
     // imageR.src = newS;
-    console.log(newS);
+    //console.log(newS);
     var coord = newS.split(",");
     ctx_result.strokeStyle = "#ffbb00";
 
