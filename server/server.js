@@ -34,7 +34,7 @@ app.get("/", function (request, response) {
 
 app.get(`/api/:userName`, (req, res) => {
   var userName = req.params.userName;
-
+  req.responseType = "json";
   if (userName in mask_api) {
     let result_object = {};
     let dataResult = mask_api[userName].split(":");
