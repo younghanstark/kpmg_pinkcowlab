@@ -39,3 +39,4 @@ Temporary Items
 
 private/
 server/node_modules
+.ignore
