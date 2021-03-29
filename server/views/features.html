@@ -1,2 +1,201 @@
-<h1 class="cover-heading"><strong>MaGam Features</strong></h1>
-<p class="lead">Very very good. Very very good. Very very good. Very very good.</p>
+<div style="text-align: left">
+  <h2 id="magam-mask-recognition-project">MaGam: Mask Recognition Project</h2>
+  <p>
+    <a href="https://opensource.org/licenses/MIT"
+      ><img
+        src="https://img.shields.io/badge/License-MIT-yellow.svg"
+        alt="License: MIT"
+    /></a>
+    <a href="https://github.com/ziinxed/kpmg_pinkcowlab/network"
+      ><img
+        src="https://img.shields.io/github/forks/ziinxed/kpmg_pinkcowlab"
+        alt="GitHub forks"
+    /></a>
+    <img
+      src="https://img.shields.io/github/languages/count/ziinxed/kpmg_pinkcowlab"
+      alt=""
+    />
+    <img
+      src="https://img.shields.io/github/contributors/ziinxed/kpmg_pinkcowlab"
+      alt=""
+    />
+  </p>
+  <p>Project for KPMG Ideathon 2021<br />PinkCow Lab.</p>
+  <p>
+    MaGam is a service that determines if people who pass through the subway
+    gate wear masks. You can quickly and accurately determine whether a large
+    number of people are wearing masks with any camera, including smartphones
+    and webcams. With our software, we can reduce the risk of COVID-19 infection
+    and efficiently allocate resources.
+  </p>
+  <h2 id="our-mission">Our Mission</h2>
+  <p>
+    Main Mission: Checking if people are wearing mask in correct ways by
+    detecting nose through AI, thereby preventing the spread of COVID-19 Sub
+    Mission 1: Correctly detecting people who are wearing masks in wrong ways
+    Sub Mission 2: Providing more efficient way of detecting mask quickly in
+    larger scales Sub Mission 3: Reduction of socioeconomic cost related to
+    pandemic situation
+  </p>
+  <h3 id="how-to-try-our-web-app">How to Try Our Web app</h3>
+  <ol>
+    <li>
+      With your prefferd browser(We recommend Chrome), enter
+      <a href="https://mymagam.com">https://mymagam.com</a>
+    </li>
+    <li>Enter the demo section of our homepage</li>
+    <li>Allow &#39;mymagam.com&#39; to use your camera</li>
+    <li>Select camera to use for mask detection</li>
+    <li>Enter your username to use in our service</li>
+    <li>You will see the sight of the camera you choose</li>
+    <li>
+      You can drag and select the section in which you want mask detection by
+      pressing the brush icon
+    </li>
+    <li>
+      <p>You can erase the selected detection area with the eraser icon</p>
+    </li>
+    <li>
+      <p>
+        You can name the selected detection area in the white naming section,
+        and each area is classified with a color code
+      </p>
+    </li>
+    <li>
+      <p>If Magam starts detecting mask, you can check it in the buttons</p>
+    </li>
+    <li>
+      If Magam senses someone who is not properly wearing a mask in designated
+      sections, it will give you a notification message.
+    </li>
+    <li>Enjoy!</li>
+  </ol>
+  <h3 id="how-to-get-data-from-api">How to get data from api</h3>
+  <ol>
+    <li>
+      GET
+      <a href="https://mymagam.com/api/[your">https://mymagam.com/api/[your</a>
+      user name]
+    </li>
+    <li>You can get the current status of mask recognition</li>
+    <li>Use api to control IOT enabled Devices</li>
+    <li>enjoy</li>
+  </ol>
+  <h3 id="how-to-setup-in-local">How to Setup in Local</h3>
+  <ol>
+    <li>
+      Install Python 3 from
+      <a href="https://www.python.org/">https://www.python.org/</a>
+    </li>
+    <li>
+      Install OpenCV from <a href="https://opencv.org/">https://opencv.org/</a>
+    </li>
+    <li>
+      Install Node.js from
+      <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>
+    </li>
+    <li>
+      Copy your Python 3 install path. In terminal, following command is
+      available.
+      <pre><code>python
+<span class="hljs-meta">&gt;&gt;</span>&gt; import sys
+<span class="hljs-meta">&gt;&gt;</span>&gt; sys.executable
+</code></pre>
+    </li>
+    <li>
+      Paste it into /server/python-node.js
+      <pre><code>let options = {
+<span class="hljs-symbol">pythonPath:</span> <span class="hljs-string">"( /* Paste It into Here */ )"</span>,
+<span class="hljs-symbol">scriptPath:</span> <span class="hljs-string">"../core"</span>,
+}<span class="hljs-comment">;</span>
+</code></pre>
+    </li>
+    <li>
+      Change your current directory into /server, start server.
+      <pre><code>cd server
+<span class="hljs-keyword">node</span> <span class="hljs-title">server</span>
+</code></pre>
+    </li>
+    <li>
+      With your prefferd browser(We recommend Chrome), enter
+      <a href="http://localhost:3000">http://localhost:3000</a>
+    </li>
+    <li>Enjoy!</li>
+  </ol>
+  <h2 id="our-technological-advantages">Our Technological Advantages</h2>
+  <ol>
+    <li>
+      Mask detection with nose: By detecting masks with nose data, Magam is not
+      limited to certain devices or places in its usage. You can use Magam with
+      any cameras including smartphones and Raspberry Pi. Also, utilizing
+      abundant nose data used for face recognition, Magam builds high level of
+      occuracy - when using mask recognition AI might show errors when detecting
+      many people with one camera. Furthermore, Magam catches those who does not
+      wear mask in a proper way such as just covering their mouth and chin.
+      Magam would also work when mask designs get different form each other,
+      regardless of their shape and size.
+    </li>
+    <li>
+      Solution using SaaS: SaaS enables Magam to be easily accessible to anyone,
+      anywhere as long as internet is there. This makes operating and using the
+      system easier for administrators and users. This leads to easier
+      collection and control of data, which makes systematic errors be easily
+      fixable remotely. The data collected by Magam can be used statistically,
+      or for more effective resource attribution. This platform based on web can
+      further be made into apps or packages.
+    </li>
+  </ol>
+  <h2 id="business">Business</h2>
+  <ol>
+    <li>
+      Business Field: Starting from public transportation such as subway, bus,
+      and train - SOM - Magam will expand its implementation to public
+      facilities such as city/regional offices and schools - SAM. Magam
+      eventually aims to be applicable to global market in general - TAM -, with
+      private businesses such as department stores and independent enterprises
+      utilizing Magam to prevent the spread of COVID-19.
+    </li>
+    <li>
+      Business Model: Users of Magam will pay for the service on hour base. They
+      will buy user credits in packages such as 10 hours, 100 hours, or
+      1-month-unlimited, and use it on their business. In Magam&#39;s early
+      market stage, free usage will be given to further attract possible Magam
+      customers.
+    </li>
+  </ol>
+  <h2 id="values">Values</h2>
+  <ol>
+    <li>
+      Socio-Economic Values: Magam can process mask detection much faster than
+      human can: considering South Korea&#39;s minimum wage standard of ￦ 8720
+      per hour, Magam can carry out 87 times of human work at the same price if
+      we set Magam&#39;s price per hour as ￦ 100. Magam would also decrease
+      social and economic cost that was happening due to human constraints, and
+      would enable human workers to concentrate on their original tasks rather
+      than focusing on mask detection.
+    </li>
+    <li>
+      Scalability: Magam can be applied anywhere as long as internet and camera
+      are provided.
+    </li>
+    <li>
+      Spontaneity: Magam can be applied in real life as fast as you want - it
+      can be applied right now.
+    </li>
+    <li>
+      Safety: Magam reduces the danger of COVID-19 pandemic, and minimizes
+      unnecessary face-to-face human contact in mask checking processes.
+    </li>
+  </ol>
+  <h2 id="post-covid">Post-COVID</h2>
+  <ol>
+    <li>
+      <p>
+        Magam&#39;s feature recognizing algorithm can be applied to various
+        fields such as:
+      </p>
+    </li>
+    <li><p>Detection of safety helmet in construction sites</p></li>
+    <li>Detection of gas masks in chemical related fields</li>
+  </ol>
+</div>

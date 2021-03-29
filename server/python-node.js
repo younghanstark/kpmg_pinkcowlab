@@ -2,12 +2,12 @@ const { PythonShell } = require("python-shell");
 
 let options = {
   pythonPath: "/usr/bin/python3",
+
   scriptPath: "../core",
 };
 
 function launchPyshell(data, socket) {
   let pyshell = new PythonShell("opencv_test_webcam_web.py", options);
-  let mask = "true";
 
   // sends a message to the Python script via stdin
   pyshell.send(data);
